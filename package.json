@@ -1,0 +1,62 @@
+{
+  "author": "GoThrive Inc.",
+  "engines": {
+    "node": "0.10.33"
+  },
+  "contributors": [
+    {
+      "name": "Esco Obong",
+      "email": "esco@getfiteats.com",
+      "url": "http://github.com/esco"
+    },
+    {
+      "name": "Faizan Sattar",
+      "email": "faizan@getfiteats.com",
+      "url": "https://github.com/fsattar"
+    }
+  ],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "name": "gothrive-cms",
+  "version": "0.0.1",
+  "homepage": "http://getgothrive.com",
+  "bugs": "https://github.com/getfiteats/gothrive-cms/issues",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:getfiteats/gothrive-cms.git"
+  },
+  "dependencies": {
+    "chai": "^1.10.0",
+    "express": "^4.11.1",
+    "grunt": "~0.4.1",
+    "grunt-bump": "0.0.6",
+    "grunt-cli": "^0.1.13",
+    "grunt-coffeelint": "~0.0.10",
+    "grunt-contrib-clean": "^0.4.1",
+    "grunt-contrib-coffee": "^0.7.0",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-copy": "^0.4.1",
+    "grunt-contrib-jshint": "^0.4.3",
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-contrib-uglify": "^0.2.7",
+    "grunt-contrib-watch": "^0.4.4",
+    "grunt-conventional-changelog": "^0.1.2",
+    "grunt-html2js": "^0.1.9",
+    "grunt-karma": "^0.8.2",
+    "grunt-less-imports": "^1.1.0",
+    "grunt-ng-annotate": "^0.8.0",
+    "karma-chai": "^0.1.0",
+    "karma-chai-sinon": "^0.1.4",
+    "karma-coverage": "^0.2.7",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "mocha": "^2.1.0",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.6.0"
+  },
+  "devDependencies": {
+    "karma": "^0.12.9",
+    "karma-firefox-launcher": "^0.1.3"
+  }
+}

@@ -1,0 +1,8 @@
+<div ng-show="userAuthenticated">
+	<a class='pull-right btn btn-gray' href="#/logout">Logout</a>
+	<ol class="breadcrumb">
+		<li ng-repeat="breadcrumb in breadcrumbs">
+			<a href="{{breadcrumb.href}}">{{breadcrumb.text}}</a>
+		</li>
+	</ol>
+</div>

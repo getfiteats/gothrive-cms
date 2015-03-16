@@ -1,0 +1,23 @@
+<h2>{{submitText}} Meal</h2>
+
+
+<form name="form" ng-class="{submitted: submitted}" ng-submit="submit()" novalidate>
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="form-group">
+				<label for="place-lookup">Find Address</label>
+				<div angucomplete
+					 id="place-lookup"
+					 placeholder="Search Places"
+					 pause="400"
+					 selectedobject="selectedPlace"
+					 url="{{apiUri}}/googleplaces/autocomplete?access_token={{accessTokenId}}&input="
+					 titlefield="description"
+					 inputclass="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<div ng-dropdown-multiselect="" options="restaurants" translation-texts="restaurantTexts" selected-model="selectedRestaurant" extra-settings="restaurantSettings"></div>
+			</div>
+	</div>
+</form>
