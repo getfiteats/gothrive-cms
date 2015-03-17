@@ -4,7 +4,7 @@ angular.module( 'cms.meal', [
 .config(function config( $stateProvider ) {
   $stateProvider
     .state('createMeal', {
-      url: '/meal',
+      url: '/meals',
       views: {
         "main": {
           controller: 'CreateMealController',

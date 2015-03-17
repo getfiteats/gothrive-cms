@@ -1,17 +1,15 @@
 angular.module('cms')
-.factory('BaseFactory', function DishFactory($log, $q){
+.factory('BaseFactory', function BaseFactory($log, $q){
   var defaults = {};
 
-  function Service(model, data) {
+  function Service(data, model) {
     var instanceDefaults;
 
-    data = data || {};
     this.model = model;
-    this.data = this.data || {};
+    this.data = data || {};
 
     if (this.defaults) {
-      instanceDefaults = angular.copy(this.defaults);
-      setServiceProperties(angular.extend(instanceDefaults, data), this);
+      setServiceProperties(angular.extend(this.defaults, this.data), this);
     }
   }
 
@@ -28,11 +26,6 @@ angular.module('cms')
     return data;
   };
 
-  Service.fromModel = function(data) {
-    var service = new this.model();
-    setServiceProperties(data, service);
-    return service;
-  };
 
   Service.prototype.save = function save() {
     var data = this.toModel();
@@ -50,6 +43,20 @@ angular.module('cms')
     //return Service.updateById(data.id, data);
   };
 
+  Service.prototype._super = function() {
+    var args = [].splice.call(arguments, 0, arguments.length);
+    Service.apply(this, args);
+  };
+ 
+  Service.fromModel = function(data) {
+    var service = Service.createInstance.call(this, data);
+    return service;
+  };
+ 
+  Service.createInstance = function(data) {
+    return new this.prototype.constructor(data, this.model);
+  };
+
   Service.getService = function getService(data) {
     return this.createInstance(data);
   };
@@ -57,6 +64,7 @@ angular.module('cms')
   Service.getServiceByQuery = function getServiceByQuery(query, include) {
     var deferred = $q.defer();
     var service;
+    var self = this;
 
     if (include) {
       query.include = include;
@@ -64,7 +72,7 @@ angular.module('cms')
 
     this.model.findOne({filter: query}).$promise
       .then(function(data){
-        service = Service.fromModel(data);
+        service = Service.fromModel.call(self, data);
         deferred.resolve(service);
       })
       .catch(function(err){
@@ -80,11 +88,24 @@ angular.module('cms')
         id: modelId
       }
     };
-    return Service.getServiceByQuery(query, include);
+    return Service.getServiceByQuery.call(this, query, include);
   };
 
-  Service.prototype.createInstance = function(data) {
-    return new this.prototype.constructor(this.model, data);
+  Service.extend = function(child, model) {
+    var statics = Object.keys(Service);
+    var fn;
+
+    statics.forEach(function(fnName){
+      if (fnName === 'extend') {
+        return;
+      }
+      fn = Service[fnName];
+      child[fnName] = function() {
+        var args = [].splice.call(arguments, 0, arguments.length);
+        return fn.apply(child, args);
+      };
+    });
+    angular.extend(child.prototype, Service.prototype);
   };
 
   function setServiceProperties(model, service) {

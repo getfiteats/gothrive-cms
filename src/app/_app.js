@@ -5,6 +5,7 @@ angular.module( 'cms', [
   'angularjs-dropdown-multiselect',
   'ngNotificationsBar',
   'ngStorage',
+  'ngTagsInput',
   'sticky',
   'templates-app',
   'templates-common',
@@ -15,6 +16,7 @@ angular.module( 'cms', [
   'cms.login',
   'cms.home',
   'cms.meal',
+  'cms.trainer',
   'cms.modals',
   'cms.gothriveServices'
 ])

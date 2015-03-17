@@ -17,1035 +17,6 @@ var module = angular.module("cms.gothriveServices", ['ngResource']);
 
 /**
  * @ngdoc object
- * @name cms.gothriveServices.Dish
- * @header cms.gothriveServices.Dish
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `Dish` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "Dish",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/dishes/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use Dish.creator() instead.
-        "prototype$__get__creator": {
-          url: urlBase + "/dishes/:id/creator",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.menuSection() instead.
-        "prototype$__get__menuSection": {
-          url: urlBase + "/dishes/:id/menuSection",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.brand() instead.
-        "prototype$__get__brand": {
-          url: urlBase + "/dishes/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.findById() instead.
-        "prototype$__findById__dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.destroyById() instead.
-        "prototype$__destroyById__dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.updateById() instead.
-        "prototype$__updateById__dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Dish.dishPrices() instead.
-        "prototype$__get__dishPrices": {
-          isArray: true,
-          url: urlBase + "/dishes/:id/dishPrices",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.create() instead.
-        "prototype$__create__dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.destroyAll() instead.
-        "prototype$__delete__dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.count() instead.
-        "prototype$__count__dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#create
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/dishes",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#upsert
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/dishes",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#exists
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/dishes/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#findById
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/dishes/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#find
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/dishes",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#findOne
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/dishes/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#updateAll
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "updateAll": {
-          url: urlBase + "/dishes/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#deleteById
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "deleteById": {
-          url: urlBase + "/dishes/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#count
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/dishes/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/dishes/:id",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.findById() instead.
-        "::findById::MenuSection::dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.destroyById() instead.
-        "::destroyById::MenuSection::dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.updateById() instead.
-        "::updateById::MenuSection::dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use MenuSection.dishes() instead.
-        "::get::MenuSection::dishes": {
-          isArray: true,
-          url: urlBase + "/MenuSections/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.create() instead.
-        "::create::MenuSection::dishes": {
-          url: urlBase + "/MenuSections/:id/dishes",
-          method: "POST"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.destroyAll() instead.
-        "::delete::MenuSection::dishes": {
-          url: urlBase + "/MenuSections/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.count() instead.
-        "::count::MenuSection::dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.findById() instead.
-        "::findById::brand::dishes": {
-          url: urlBase + "/brands/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.destroyById() instead.
-        "::destroyById::brand::dishes": {
-          url: urlBase + "/brands/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.dishes.updateById() instead.
-        "::updateById::brand::dishes": {
-          url: urlBase + "/brands/:id/dishes/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Brand.dishes() instead.
-        "::get::brand::dishes": {
-          isArray: true,
-          url: urlBase + "/brands/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.create() instead.
-        "::create::brand::dishes": {
-          url: urlBase + "/brands/:id/dishes",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.dishes.destroyAll() instead.
-        "::delete::brand::dishes": {
-          url: urlBase + "/brands/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.dishes.count() instead.
-        "::count::brand::dishes": {
-          url: urlBase + "/brands/:id/dishes/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use DishReference.dish() instead.
-        "::get::DishReference::dish": {
-          url: urlBase + "/DishReferences/:id/dish",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#updateOrCreate
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#update
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#destroyById
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#removeById
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.Dish#modelName
-    * @propertyOf cms.gothriveServices.Dish
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `Dish`.
-    */
-    R.modelName = "Dish";
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#creator
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Fetches belongsTo relation creator
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `User` object.)
-         * </em>
-         */
-        R.creator = function() {
-          var TargetResource = $injector.get("User");
-          var action = TargetResource["::get::dish::creator"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#menuSection
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Fetches belongsTo relation menuSection
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        R.menuSection = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::get::dish::menuSection"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#brand
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Fetches belongsTo relation brand
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        R.brand = function() {
-          var TargetResource = $injector.get("Brand");
-          var action = TargetResource["::get::dish::brand"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Dish.dishPrices
-     * @header lbServices.Dish.dishPrices
-     * @object
-     * @description
-     *
-     * The object `Dish.dishPrices` groups methods
-     * manipulating `DishPrice` instances related to `Dish`.
-     *
-     * Call {@link lbServices.Dish#dishPrices Dish.dishPrices()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#dishPrices
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Queries dishPrices of dish.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishPrice` object.)
-         * </em>
-         */
-        R.dishPrices = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::get::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish.dishPrices#count
-         * @methodOf cms.gothriveServices.Dish.dishPrices
-         *
-         * @description
-         *
-         * Counts dishPrices of dish.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.dishPrices.count = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::count::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish.dishPrices#create
-         * @methodOf cms.gothriveServices.Dish.dishPrices
-         *
-         * @description
-         *
-         * Creates a new instance in dishPrices of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishPrice` object.)
-         * </em>
-         */
-        R.dishPrices.create = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::create::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish.dishPrices#destroyAll
-         * @methodOf cms.gothriveServices.Dish.dishPrices
-         *
-         * @description
-         *
-         * Deletes all dishPrices of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishPrices.destroyAll = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::delete::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish.dishPrices#destroyById
-         * @methodOf cms.gothriveServices.Dish.dishPrices
-         *
-         * @description
-         *
-         * Delete a related item by id for dishPrices
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishPrices
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishPrices.destroyById = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::destroyById::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish.dishPrices#findById
-         * @methodOf cms.gothriveServices.Dish.dishPrices
-         *
-         * @description
-         *
-         * Find a related item by id for dishPrices
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishPrices
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishPrice` object.)
-         * </em>
-         */
-        R.dishPrices.findById = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::findById::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish.dishPrices#updateById
-         * @methodOf cms.gothriveServices.Dish.dishPrices
-         *
-         * @description
-         *
-         * Update a related item by id for dishPrices
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishPrices
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishPrice` object.)
-         * </em>
-         */
-        R.dishPrices.updateById = function() {
-          var TargetResource = $injector.get("DishPrice");
-          var action = TargetResource["::updateById::dish::dishPrices"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
  * @name cms.gothriveServices.User
  * @header cms.gothriveServices.User
  * @object
@@ -1704,12 +675,6 @@ module.factory(
         "resetPassword": {
           url: urlBase + "/users/reset",
           method: "POST"
-        },
-
-        // INTERNAL. Use Dish.creator() instead.
-        "::get::dish::creator": {
-          url: urlBase + "/dishes/:id/creator",
-          method: "GET"
         },
 
         // INTERNAL. Use AccessToken.user() instead.
@@ -4510,2393 +3475,6 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name cms.gothriveServices.Location
- * @header cms.gothriveServices.Location
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `Location` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "Location",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/locations/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use Location.brand() instead.
-        "prototype$__get__brand": {
-          url: urlBase + "/locations/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.findById() instead.
-        "prototype$__findById__menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.destroyById() instead.
-        "prototype$__destroyById__menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.updateById() instead.
-        "prototype$__updateById__menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Location.menuTemplates() instead.
-        "prototype$__get__menuTemplates": {
-          isArray: true,
-          url: urlBase + "/locations/:id/menuTemplates",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.create() instead.
-        "prototype$__create__menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.destroyAll() instead.
-        "prototype$__delete__menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.count() instead.
-        "prototype$__count__menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#create
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/locations",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#upsert
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/locations",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#exists
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/locations/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#findById
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/locations/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#find
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/locations",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#findOne
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/locations/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#updateAll
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "updateAll": {
-          url: urlBase + "/locations/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#deleteById
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "deleteById": {
-          url: urlBase + "/locations/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#count
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/locations/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/locations/:id",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Brand.locations.findById() instead.
-        "::findById::brand::locations": {
-          url: urlBase + "/brands/:id/locations/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.locations.destroyById() instead.
-        "::destroyById::brand::locations": {
-          url: urlBase + "/brands/:id/locations/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.locations.updateById() instead.
-        "::updateById::brand::locations": {
-          url: urlBase + "/brands/:id/locations/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Brand.locations() instead.
-        "::get::brand::locations": {
-          isArray: true,
-          url: urlBase + "/brands/:id/locations",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.locations.create() instead.
-        "::create::brand::locations": {
-          url: urlBase + "/brands/:id/locations",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.locations.destroyAll() instead.
-        "::delete::brand::locations": {
-          url: urlBase + "/brands/:id/locations",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.locations.count() instead.
-        "::count::brand::locations": {
-          url: urlBase + "/brands/:id/locations/count",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#updateOrCreate
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#update
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#destroyById
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#removeById
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.Location#modelName
-    * @propertyOf cms.gothriveServices.Location
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `Location`.
-    */
-    R.modelName = "Location";
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#brand
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Fetches belongsTo relation brand
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        R.brand = function() {
-          var TargetResource = $injector.get("Brand");
-          var action = TargetResource["::get::location::brand"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Location.menuTemplates
-     * @header lbServices.Location.menuTemplates
-     * @object
-     * @description
-     *
-     * The object `Location.menuTemplates` groups methods
-     * manipulating `MenuTemplate` instances related to `Location`.
-     *
-     * Call {@link lbServices.Location#menuTemplates Location.menuTemplates()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location#menuTemplates
-         * @methodOf cms.gothriveServices.Location
-         *
-         * @description
-         *
-         * Queries menuTemplates of location.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuTemplate` object.)
-         * </em>
-         */
-        R.menuTemplates = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::get::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location.menuTemplates#count
-         * @methodOf cms.gothriveServices.Location.menuTemplates
-         *
-         * @description
-         *
-         * Counts menuTemplates of location.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.menuTemplates.count = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::count::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location.menuTemplates#create
-         * @methodOf cms.gothriveServices.Location.menuTemplates
-         *
-         * @description
-         *
-         * Creates a new instance in menuTemplates of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuTemplate` object.)
-         * </em>
-         */
-        R.menuTemplates.create = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::create::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location.menuTemplates#destroyAll
-         * @methodOf cms.gothriveServices.Location.menuTemplates
-         *
-         * @description
-         *
-         * Deletes all menuTemplates of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.menuTemplates.destroyAll = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::delete::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location.menuTemplates#destroyById
-         * @methodOf cms.gothriveServices.Location.menuTemplates
-         *
-         * @description
-         *
-         * Delete a related item by id for menuTemplates
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for menuTemplates
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.menuTemplates.destroyById = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::destroyById::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location.menuTemplates#findById
-         * @methodOf cms.gothriveServices.Location.menuTemplates
-         *
-         * @description
-         *
-         * Find a related item by id for menuTemplates
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for menuTemplates
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuTemplate` object.)
-         * </em>
-         */
-        R.menuTemplates.findById = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::findById::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Location.menuTemplates#updateById
-         * @methodOf cms.gothriveServices.Location.menuTemplates
-         *
-         * @description
-         *
-         * Update a related item by id for menuTemplates
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for menuTemplates
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuTemplate` object.)
-         * </em>
-         */
-        R.menuTemplates.updateById = function() {
-          var TargetResource = $injector.get("MenuTemplate");
-          var action = TargetResource["::updateById::location::menuTemplates"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name cms.gothriveServices.MenuSection
- * @header cms.gothriveServices.MenuSection
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `MenuSection` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "MenuSection",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/MenuSections/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use MenuSection.dishes.findById() instead.
-        "prototype$__findById__dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.destroyById() instead.
-        "prototype$__destroyById__dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.updateById() instead.
-        "prototype$__updateById__dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use MenuSection.brand() instead.
-        "prototype$__get__brand": {
-          url: urlBase + "/MenuSections/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuSection.dishes() instead.
-        "prototype$__get__dishes": {
-          isArray: true,
-          url: urlBase + "/MenuSections/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.create() instead.
-        "prototype$__create__dishes": {
-          url: urlBase + "/MenuSections/:id/dishes",
-          method: "POST"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.destroyAll() instead.
-        "prototype$__delete__dishes": {
-          url: urlBase + "/MenuSections/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuSection.dishes.count() instead.
-        "prototype$__count__dishes": {
-          url: urlBase + "/MenuSections/:id/dishes/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#create
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/MenuSections",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#upsert
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/MenuSections",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#exists
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/MenuSections/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#findById
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/MenuSections/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#find
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/MenuSections",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#findOne
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/MenuSections/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#updateAll
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "updateAll": {
-          url: urlBase + "/MenuSections/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#deleteById
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "deleteById": {
-          url: urlBase + "/MenuSections/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#count
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/MenuSections/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/MenuSections/:id",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Dish.menuSection() instead.
-        "::get::dish::menuSection": {
-          url: urlBase + "/dishes/:id/menuSection",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.menuSections.findById() instead.
-        "::findById::brand::menuSections": {
-          url: urlBase + "/brands/:id/menuSections/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.menuSections.destroyById() instead.
-        "::destroyById::brand::menuSections": {
-          url: urlBase + "/brands/:id/menuSections/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.menuSections.updateById() instead.
-        "::updateById::brand::menuSections": {
-          url: urlBase + "/brands/:id/menuSections/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Brand.menuSections() instead.
-        "::get::brand::menuSections": {
-          isArray: true,
-          url: urlBase + "/brands/:id/menuSections",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.menuSections.create() instead.
-        "::create::brand::menuSections": {
-          url: urlBase + "/brands/:id/menuSections",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.menuSections.destroyAll() instead.
-        "::delete::brand::menuSections": {
-          url: urlBase + "/brands/:id/menuSections",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.menuSections.count() instead.
-        "::count::brand::menuSections": {
-          url: urlBase + "/brands/:id/menuSections/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuTemplate.menuSection() instead.
-        "::get::MenuTemplate::menuSection": {
-          url: urlBase + "/MenuTemplates/:id/menuSection",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#updateOrCreate
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#update
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#destroyById
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#removeById
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.MenuSection#modelName
-    * @propertyOf cms.gothriveServices.MenuSection
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `MenuSection`.
-    */
-    R.modelName = "MenuSection";
-
-    /**
-     * @ngdoc object
-     * @name lbServices.MenuSection.dishes
-     * @header lbServices.MenuSection.dishes
-     * @object
-     * @description
-     *
-     * The object `MenuSection.dishes` groups methods
-     * manipulating `Dish` instances related to `MenuSection`.
-     *
-     * Call {@link lbServices.MenuSection#dishes MenuSection.dishes()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#dishes
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Queries dishes of MenuSection.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::get::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection.dishes#count
-         * @methodOf cms.gothriveServices.MenuSection.dishes
-         *
-         * @description
-         *
-         * Counts dishes of MenuSection.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.dishes.count = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::count::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection.dishes#create
-         * @methodOf cms.gothriveServices.MenuSection.dishes
-         *
-         * @description
-         *
-         * Creates a new instance in dishes of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes.create = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::create::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection.dishes#destroyAll
-         * @methodOf cms.gothriveServices.MenuSection.dishes
-         *
-         * @description
-         *
-         * Deletes all dishes of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishes.destroyAll = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::delete::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection.dishes#destroyById
-         * @methodOf cms.gothriveServices.MenuSection.dishes
-         *
-         * @description
-         *
-         * Delete a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishes.destroyById = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::destroyById::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection.dishes#findById
-         * @methodOf cms.gothriveServices.MenuSection.dishes
-         *
-         * @description
-         *
-         * Find a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes.findById = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::findById::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection.dishes#updateById
-         * @methodOf cms.gothriveServices.MenuSection.dishes
-         *
-         * @description
-         *
-         * Update a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes.updateById = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::updateById::MenuSection::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuSection#brand
-         * @methodOf cms.gothriveServices.MenuSection
-         *
-         * @description
-         *
-         * Fetches belongsTo relation brand
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        R.brand = function() {
-          var TargetResource = $injector.get("Brand");
-          var action = TargetResource["::get::MenuSection::brand"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name cms.gothriveServices.Ingredient
- * @header cms.gothriveServices.Ingredient
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `Ingredient` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "Ingredient",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/ingredients/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use Ingredient.brand() instead.
-        "prototype$__get__brand": {
-          url: urlBase + "/ingredients/:id/brand",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#create
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/ingredients",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#upsert
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/ingredients",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#exists
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/ingredients/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#findById
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/ingredients/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#find
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/ingredients",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#findOne
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/ingredients/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#updateAll
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "updateAll": {
-          url: urlBase + "/ingredients/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#deleteById
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "deleteById": {
-          url: urlBase + "/ingredients/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#count
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/ingredients/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/ingredients/:id",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#autoComplete
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `query` – `{string=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        "autoComplete": {
-          isArray: true,
-          url: urlBase + "/ingredients/autocomplete",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#updateOrCreate
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Ingredient` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#update
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#destroyById
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#removeById
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.Ingredient#modelName
-    * @propertyOf cms.gothriveServices.Ingredient
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `Ingredient`.
-    */
-    R.modelName = "Ingredient";
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Ingredient#brand
-         * @methodOf cms.gothriveServices.Ingredient
-         *
-         * @description
-         *
-         * Fetches belongsTo relation brand
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        R.brand = function() {
-          var TargetResource = $injector.get("Brand");
-          var action = TargetResource["::get::ingredient::brand"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
  * @name cms.gothriveServices.Brand
  * @header cms.gothriveServices.Brand
  * @object
@@ -6916,136 +3494,93 @@ module.factory(
   "Brand",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/brands/:id",
+      urlBase + "/Brands/:id",
       { 'id': '@id' },
       {
 
+        // INTERNAL. Use Brand.meals.findById() instead.
+        "prototype$__findById__meals": {
+          url: urlBase + "/Brands/:id/meals/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Brand.meals.destroyById() instead.
+        "prototype$__destroyById__meals": {
+          url: urlBase + "/Brands/:id/meals/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Brand.meals.updateById() instead.
+        "prototype$__updateById__meals": {
+          url: urlBase + "/Brands/:id/meals/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Brand.dishes.findById() instead.
         "prototype$__findById__dishes": {
-          url: urlBase + "/brands/:id/dishes/:fk",
+          url: urlBase + "/Brands/:id/dishes/:fk",
           method: "GET"
         },
 
         // INTERNAL. Use Brand.dishes.destroyById() instead.
         "prototype$__destroyById__dishes": {
-          url: urlBase + "/brands/:id/dishes/:fk",
+          url: urlBase + "/Brands/:id/dishes/:fk",
           method: "DELETE"
         },
 
         // INTERNAL. Use Brand.dishes.updateById() instead.
         "prototype$__updateById__dishes": {
-          url: urlBase + "/brands/:id/dishes/:fk",
+          url: urlBase + "/Brands/:id/dishes/:fk",
           method: "PUT"
         },
 
-        // INTERNAL. Use Brand.locations.findById() instead.
-        "prototype$__findById__locations": {
-          url: urlBase + "/brands/:id/locations/:fk",
+        // INTERNAL. Use Brand.meals() instead.
+        "prototype$__get__meals": {
+          isArray: true,
+          url: urlBase + "/Brands/:id/meals",
           method: "GET"
         },
 
-        // INTERNAL. Use Brand.locations.destroyById() instead.
-        "prototype$__destroyById__locations": {
-          url: urlBase + "/brands/:id/locations/:fk",
+        // INTERNAL. Use Brand.meals.create() instead.
+        "prototype$__create__meals": {
+          url: urlBase + "/Brands/:id/meals",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Brand.meals.destroyAll() instead.
+        "prototype$__delete__meals": {
+          url: urlBase + "/Brands/:id/meals",
           method: "DELETE"
         },
 
-        // INTERNAL. Use Brand.locations.updateById() instead.
-        "prototype$__updateById__locations": {
-          url: urlBase + "/brands/:id/locations/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Brand.menuSections.findById() instead.
-        "prototype$__findById__menuSections": {
-          url: urlBase + "/brands/:id/menuSections/:fk",
+        // INTERNAL. Use Brand.meals.count() instead.
+        "prototype$__count__meals": {
+          url: urlBase + "/Brands/:id/meals/count",
           method: "GET"
-        },
-
-        // INTERNAL. Use Brand.menuSections.destroyById() instead.
-        "prototype$__destroyById__menuSections": {
-          url: urlBase + "/brands/:id/menuSections/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.menuSections.updateById() instead.
-        "prototype$__updateById__menuSections": {
-          url: urlBase + "/brands/:id/menuSections/:fk",
-          method: "PUT"
         },
 
         // INTERNAL. Use Brand.dishes() instead.
         "prototype$__get__dishes": {
           isArray: true,
-          url: urlBase + "/brands/:id/dishes",
+          url: urlBase + "/Brands/:id/dishes",
           method: "GET"
         },
 
         // INTERNAL. Use Brand.dishes.create() instead.
         "prototype$__create__dishes": {
-          url: urlBase + "/brands/:id/dishes",
+          url: urlBase + "/Brands/:id/dishes",
           method: "POST"
         },
 
         // INTERNAL. Use Brand.dishes.destroyAll() instead.
         "prototype$__delete__dishes": {
-          url: urlBase + "/brands/:id/dishes",
+          url: urlBase + "/Brands/:id/dishes",
           method: "DELETE"
         },
 
         // INTERNAL. Use Brand.dishes.count() instead.
         "prototype$__count__dishes": {
-          url: urlBase + "/brands/:id/dishes/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.locations() instead.
-        "prototype$__get__locations": {
-          isArray: true,
-          url: urlBase + "/brands/:id/locations",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.locations.create() instead.
-        "prototype$__create__locations": {
-          url: urlBase + "/brands/:id/locations",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.locations.destroyAll() instead.
-        "prototype$__delete__locations": {
-          url: urlBase + "/brands/:id/locations",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.locations.count() instead.
-        "prototype$__count__locations": {
-          url: urlBase + "/brands/:id/locations/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.menuSections() instead.
-        "prototype$__get__menuSections": {
-          isArray: true,
-          url: urlBase + "/brands/:id/menuSections",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.menuSections.create() instead.
-        "prototype$__create__menuSections": {
-          url: urlBase + "/brands/:id/menuSections",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.menuSections.destroyAll() instead.
-        "prototype$__delete__menuSections": {
-          url: urlBase + "/brands/:id/menuSections",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.menuSections.count() instead.
-        "prototype$__count__menuSections": {
-          url: urlBase + "/brands/:id/menuSections/count",
+          url: urlBase + "/Brands/:id/dishes/count",
           method: "GET"
         },
 
@@ -7083,7 +3618,7 @@ module.factory(
          * </em>
          */
         "create": {
-          url: urlBase + "/brands",
+          url: urlBase + "/Brands",
           method: "POST"
         },
 
@@ -7121,7 +3656,7 @@ module.factory(
          * </em>
          */
         "upsert": {
-          url: urlBase + "/brands",
+          url: urlBase + "/Brands",
           method: "PUT"
         },
 
@@ -7153,7 +3688,7 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/brands/:id/exists",
+          url: urlBase + "/Brands/:id/exists",
           method: "GET"
         },
 
@@ -7186,7 +3721,7 @@ module.factory(
          * </em>
          */
         "findById": {
-          url: urlBase + "/brands/:id",
+          url: urlBase + "/Brands/:id",
           method: "GET"
         },
 
@@ -7220,7 +3755,7 @@ module.factory(
          */
         "find": {
           isArray: true,
-          url: urlBase + "/brands",
+          url: urlBase + "/Brands",
           method: "GET"
         },
 
@@ -7253,7 +3788,7 @@ module.factory(
          * </em>
          */
         "findOne": {
-          url: urlBase + "/brands/findOne",
+          url: urlBase + "/Brands/findOne",
           method: "GET"
         },
 
@@ -7287,7 +3822,7 @@ module.factory(
          * This method returns no data.
          */
         "updateAll": {
-          url: urlBase + "/brands/update",
+          url: urlBase + "/Brands/update",
           method: "POST"
         },
 
@@ -7317,7 +3852,7 @@ module.factory(
          * This method returns no data.
          */
         "deleteById": {
-          url: urlBase + "/brands/:id",
+          url: urlBase + "/Brands/:id",
           method: "DELETE"
         },
 
@@ -7349,7 +3884,7 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/brands/count",
+          url: urlBase + "/Brands/count",
           method: "GET"
         },
 
@@ -7386,7 +3921,7 @@ module.factory(
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/brands/:id",
+          url: urlBase + "/Brands/:id",
           method: "PUT"
         },
 
@@ -7422,114 +3957,19 @@ module.factory(
          */
         "autoComplete": {
           isArray: true,
-          url: urlBase + "/brands/autocomplete",
+          url: urlBase + "/Brands/autocomplete",
           method: "GET"
         },
 
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand#getAdminLocationMenu
-         * @methodOf cms.gothriveServices.Brand
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `brandId` – `{string=}` - 
-         *
-         *  - `locationId` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        "getAdminLocationMenu": {
-          url: urlBase + "/brands/adminLocationMenu",
+        // INTERNAL. Use Meal.brand() instead.
+        "::get::Meal::brand": {
+          url: urlBase + "/Meals/:id/brand",
           method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand#transcribeMenu
-         * @methodOf cms.gothriveServices.Brand
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         *  - `brandId` – `{string=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        "transcribeMenu": {
-          url: urlBase + "/brands/transcribeMenu",
-          method: "POST"
         },
 
         // INTERNAL. Use Dish.brand() instead.
-        "::get::dish::brand": {
-          url: urlBase + "/dishes/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.brand() instead.
-        "::get::location::brand": {
-          url: urlBase + "/locations/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuSection.brand() instead.
-        "::get::MenuSection::brand": {
-          url: urlBase + "/MenuSections/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Ingredient.brand() instead.
-        "::get::ingredient::brand": {
-          url: urlBase + "/ingredients/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Menu.brand() instead.
-        "::get::Menu::brand": {
-          url: urlBase + "/Menus/:id/brand",
+        "::get::Dish::brand": {
+          url: urlBase + "/Dishes/:id/brand",
           method: "GET"
         },
       }
@@ -7670,6 +4110,269 @@ module.factory(
 
     /**
      * @ngdoc object
+     * @name lbServices.Brand.meals
+     * @header lbServices.Brand.meals
+     * @object
+     * @description
+     *
+     * The object `Brand.meals` groups methods
+     * manipulating `Meal` instances related to `Brand`.
+     *
+     * Call {@link lbServices.Brand#meals Brand.meals()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand#meals
+         * @methodOf cms.gothriveServices.Brand
+         *
+         * @description
+         *
+         * Queries meals of Brand.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        R.meals = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::get::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand.meals#count
+         * @methodOf cms.gothriveServices.Brand.meals
+         *
+         * @description
+         *
+         * Counts meals of Brand.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.meals.count = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::count::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand.meals#create
+         * @methodOf cms.gothriveServices.Brand.meals
+         *
+         * @description
+         *
+         * Creates a new instance in meals of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        R.meals.create = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::create::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand.meals#destroyAll
+         * @methodOf cms.gothriveServices.Brand.meals
+         *
+         * @description
+         *
+         * Deletes all meals of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.meals.destroyAll = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::delete::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand.meals#destroyById
+         * @methodOf cms.gothriveServices.Brand.meals
+         *
+         * @description
+         *
+         * Delete a related item by id for meals
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for meals
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.meals.destroyById = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::destroyById::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand.meals#findById
+         * @methodOf cms.gothriveServices.Brand.meals
+         *
+         * @description
+         *
+         * Find a related item by id for meals
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for meals
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        R.meals.findById = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::findById::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Brand.meals#updateById
+         * @methodOf cms.gothriveServices.Brand.meals
+         *
+         * @description
+         *
+         * Update a related item by id for meals
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for meals
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        R.meals.updateById = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::updateById::Brand::meals"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
      * @name lbServices.Brand.dishes
      * @header lbServices.Brand.dishes
      * @object
@@ -7690,7 +4393,7 @@ module.factory(
          *
          * @description
          *
-         * Queries dishes of brand.
+         * Queries dishes of Brand.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -7715,7 +4418,7 @@ module.factory(
          */
         R.dishes = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::get::brand::dishes"];
+          var action = TargetResource["::get::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -7726,7 +4429,7 @@ module.factory(
          *
          * @description
          *
-         * Counts dishes of brand.
+         * Counts dishes of Brand.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -7750,7 +4453,7 @@ module.factory(
          */
         R.dishes.count = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::count::brand::dishes"];
+          var action = TargetResource["::count::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -7788,7 +4491,7 @@ module.factory(
          */
         R.dishes.create = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::create::brand::dishes"];
+          var action = TargetResource["::create::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -7819,7 +4522,7 @@ module.factory(
          */
         R.dishes.destroyAll = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::delete::brand::dishes"];
+          var action = TargetResource["::delete::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -7852,7 +4555,7 @@ module.factory(
          */
         R.dishes.destroyById = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::destroyById::brand::dishes"];
+          var action = TargetResource["::destroyById::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -7888,7 +4591,7 @@ module.factory(
          */
         R.dishes.findById = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::findById::brand::dishes"];
+          var action = TargetResource["::findById::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -7928,32 +4631,695 @@ module.factory(
          */
         R.dishes.updateById = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::updateById::brand::dishes"];
+          var action = TargetResource["::updateById::Brand::dishes"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name cms.gothriveServices.Meal
+ * @header cms.gothriveServices.Meal
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Meal` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Meal",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Meals/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use Meal.brand() instead.
+        "prototype$__get__brand": {
+          url: urlBase + "/Meals/:id/brand",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.dishes.findById() instead.
+        "prototype$__findById__dishes": {
+          url: urlBase + "/Meals/:id/dishes/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.dishes.destroyById() instead.
+        "prototype$__destroyById__dishes": {
+          url: urlBase + "/Meals/:id/dishes/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Meal.dishes.updateById() instead.
+        "prototype$__updateById__dishes": {
+          url: urlBase + "/Meals/:id/dishes/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Meal.trainer() instead.
+        "prototype$__get__trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.trainer.create() instead.
+        "prototype$__create__trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Meal.trainer.update() instead.
+        "prototype$__update__trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Meal.trainer.destroy() instead.
+        "prototype$__destroy__trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Meal.dishes() instead.
+        "prototype$__get__dishes": {
+          isArray: true,
+          url: urlBase + "/Meals/:id/dishes",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.dishes.create() instead.
+        "prototype$__create__dishes": {
+          url: urlBase + "/Meals/:id/dishes",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Meal.dishes.destroyAll() instead.
+        "prototype$__delete__dishes": {
+          url: urlBase + "/Meals/:id/dishes",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Meal.dishes.count() instead.
+        "prototype$__count__dishes": {
+          url: urlBase + "/Meals/:id/dishes/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#create
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Meals",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#upsert
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Meals",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#exists
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Meals/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#findById
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Meals/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#find
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Meals",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#findOne
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Meals/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#updateAll
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Meals/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#deleteById
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Meals/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#count
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Meals/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#prototype$updateAttributes
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Meals/:id",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Brand.meals.findById() instead.
+        "::findById::Brand::meals": {
+          url: urlBase + "/Brands/:id/meals/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Brand.meals.destroyById() instead.
+        "::destroyById::Brand::meals": {
+          url: urlBase + "/Brands/:id/meals/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Brand.meals.updateById() instead.
+        "::updateById::Brand::meals": {
+          url: urlBase + "/Brands/:id/meals/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Brand.meals() instead.
+        "::get::Brand::meals": {
+          isArray: true,
+          url: urlBase + "/Brands/:id/meals",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Brand.meals.create() instead.
+        "::create::Brand::meals": {
+          url: urlBase + "/Brands/:id/meals",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Brand.meals.destroyAll() instead.
+        "::delete::Brand::meals": {
+          url: urlBase + "/Brands/:id/meals",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Brand.meals.count() instead.
+        "::count::Brand::meals": {
+          url: urlBase + "/Brands/:id/meals/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Dish.meal() instead.
+        "::get::Dish::meal": {
+          url: urlBase + "/Dishes/:id/meal",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#updateOrCreate
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#update
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#destroyById
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#removeById
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name cms.gothriveServices.Meal#modelName
+    * @propertyOf cms.gothriveServices.Meal
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Meal`.
+    */
+    R.modelName = "Meal";
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#brand
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * Fetches belongsTo relation brand
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Brand` object.)
+         * </em>
+         */
+        R.brand = function() {
+          var TargetResource = $injector.get("Brand");
+          var action = TargetResource["::get::Meal::brand"];
           return action.apply(R, arguments);
         };
     /**
      * @ngdoc object
-     * @name lbServices.Brand.locations
-     * @header lbServices.Brand.locations
+     * @name lbServices.Meal.dishes
+     * @header lbServices.Meal.dishes
      * @object
      * @description
      *
-     * The object `Brand.locations` groups methods
-     * manipulating `Location` instances related to `Brand`.
+     * The object `Meal.dishes` groups methods
+     * manipulating `DishReference` instances related to `Meal`.
      *
-     * Call {@link lbServices.Brand#locations Brand.locations()}
+     * Call {@link lbServices.Meal#dishes Meal.dishes()}
      * to query all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand#locations
-         * @methodOf cms.gothriveServices.Brand
+         * @name cms.gothriveServices.Meal#dishes
+         * @methodOf cms.gothriveServices.Meal
          *
          * @description
          *
-         * Queries locations of brand.
+         * Queries dishes of Meal.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -7973,23 +5339,23 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
+         * This usually means the response is a `DishReference` object.)
          * </em>
          */
-        R.locations = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::get::brand::locations"];
+        R.dishes = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::get::Meal::dishes"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.locations#count
-         * @methodOf cms.gothriveServices.Brand.locations
+         * @name cms.gothriveServices.Meal.dishes#count
+         * @methodOf cms.gothriveServices.Meal.dishes
          *
          * @description
          *
-         * Counts locations of brand.
+         * Counts dishes of Meal.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8011,20 +5377,20 @@ module.factory(
          *
          *  - `count` – `{number=}` - 
          */
-        R.locations.count = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::count::brand::locations"];
+        R.dishes.count = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::count::Meal::dishes"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.locations#create
-         * @methodOf cms.gothriveServices.Brand.locations
+         * @name cms.gothriveServices.Meal.dishes#create
+         * @methodOf cms.gothriveServices.Meal.dishes
          *
          * @description
          *
-         * Creates a new instance in locations of this model.
+         * Creates a new instance in dishes of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8046,23 +5412,23 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
+         * This usually means the response is a `DishReference` object.)
          * </em>
          */
-        R.locations.create = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::create::brand::locations"];
+        R.dishes.create = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::create::Meal::dishes"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.locations#destroyAll
-         * @methodOf cms.gothriveServices.Brand.locations
+         * @name cms.gothriveServices.Meal.dishes#destroyAll
+         * @methodOf cms.gothriveServices.Meal.dishes
          *
          * @description
          *
-         * Deletes all locations of this model.
+         * Deletes all dishes of this model.
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8080,26 +5446,26 @@ module.factory(
          *
          * This method returns no data.
          */
-        R.locations.destroyAll = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::delete::brand::locations"];
+        R.dishes.destroyAll = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::delete::Meal::dishes"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.locations#destroyById
-         * @methodOf cms.gothriveServices.Brand.locations
+         * @name cms.gothriveServices.Meal.dishes#destroyById
+         * @methodOf cms.gothriveServices.Meal.dishes
          *
          * @description
          *
-         * Delete a related item by id for locations
+         * Delete a related item by id for dishes
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - PersistedModel id
          *
-         *  - `fk` – `{*}` - Foreign key for locations
+         *  - `fk` – `{*}` - Foreign key for dishes
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -8113,26 +5479,26 @@ module.factory(
          *
          * This method returns no data.
          */
-        R.locations.destroyById = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::destroyById::brand::locations"];
+        R.dishes.destroyById = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::destroyById::Meal::dishes"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.locations#findById
-         * @methodOf cms.gothriveServices.Brand.locations
+         * @name cms.gothriveServices.Meal.dishes#findById
+         * @methodOf cms.gothriveServices.Meal.dishes
          *
          * @description
          *
-         * Find a related item by id for locations
+         * Find a related item by id for dishes
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - PersistedModel id
          *
-         *  - `fk` – `{*}` - Foreign key for locations
+         *  - `fk` – `{*}` - Foreign key for dishes
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -8146,29 +5512,29 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
+         * This usually means the response is a `DishReference` object.)
          * </em>
          */
-        R.locations.findById = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::findById::brand::locations"];
+        R.dishes.findById = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::findById::Meal::dishes"];
           return action.apply(R, arguments);
         };
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.locations#updateById
-         * @methodOf cms.gothriveServices.Brand.locations
+         * @name cms.gothriveServices.Meal.dishes#updateById
+         * @methodOf cms.gothriveServices.Meal.dishes
          *
          * @description
          *
-         * Update a related item by id for locations
+         * Update a related item by id for dishes
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - PersistedModel id
          *
-         *  - `fk` – `{*}` - Foreign key for locations
+         *  - `fk` – `{*}` - Foreign key for dishes
          *
          * @param {Object} postData Request data.
          *
@@ -8186,43 +5552,365 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Location` object.)
+         * This usually means the response is a `DishReference` object.)
          * </em>
          */
-        R.locations.updateById = function() {
-          var TargetResource = $injector.get("Location");
-          var action = TargetResource["::updateById::brand::locations"];
+        R.dishes.updateById = function() {
+          var TargetResource = $injector.get("DishReference");
+          var action = TargetResource["::updateById::Meal::dishes"];
           return action.apply(R, arguments);
         };
     /**
      * @ngdoc object
-     * @name lbServices.Brand.menuSections
-     * @header lbServices.Brand.menuSections
+     * @name lbServices.Meal.trainer
+     * @header lbServices.Meal.trainer
      * @object
      * @description
      *
-     * The object `Brand.menuSections` groups methods
-     * manipulating `MenuSection` instances related to `Brand`.
+     * The object `Meal.trainer` groups methods
+     * manipulating `TrainerReference` instances related to `Meal`.
      *
-     * Call {@link lbServices.Brand#menuSections Brand.menuSections()}
+     * Call {@link lbServices.Meal#trainer Meal.trainer()}
      * to query all related instances.
      */
 
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand#menuSections
-         * @methodOf cms.gothriveServices.Brand
+         * @name cms.gothriveServices.Meal#trainer
+         * @methodOf cms.gothriveServices.Meal
          *
          * @description
          *
-         * Queries menuSections of brand.
+         * Fetches hasOne relation trainer
          *
          * @param {Object=} parameters Request parameters.
          *
          *  - `id` – `{*}` - PersistedModel id
          *
-         *  - `filter` – `{object=}` - 
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `TrainerReference` object.)
+         * </em>
+         */
+        R.trainer = function() {
+          var TargetResource = $injector.get("TrainerReference");
+          var action = TargetResource["::get::Meal::trainer"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal.trainer#create
+         * @methodOf cms.gothriveServices.Meal.trainer
+         *
+         * @description
+         *
+         * Creates a new instance in trainer of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `TrainerReference` object.)
+         * </em>
+         */
+        R.trainer.create = function() {
+          var TargetResource = $injector.get("TrainerReference");
+          var action = TargetResource["::create::Meal::trainer"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal.trainer#destroy
+         * @methodOf cms.gothriveServices.Meal.trainer
+         *
+         * @description
+         *
+         * Deletes trainer of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.trainer.destroy = function() {
+          var TargetResource = $injector.get("TrainerReference");
+          var action = TargetResource["::destroy::Meal::trainer"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal.trainer#update
+         * @methodOf cms.gothriveServices.Meal.trainer
+         *
+         * @description
+         *
+         * Update trainer of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `TrainerReference` object.)
+         * </em>
+         */
+        R.trainer.update = function() {
+          var TargetResource = $injector.get("TrainerReference");
+          var action = TargetResource["::update::Meal::trainer"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name cms.gothriveServices.Dish
+ * @header cms.gothriveServices.Dish
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Dish` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Dish",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Dishes/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use Dish.brand() instead.
+        "prototype$__get__brand": {
+          url: urlBase + "/Dishes/:id/brand",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Dish.meal() instead.
+        "prototype$__get__meal": {
+          url: urlBase + "/Dishes/:id/meal",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#create
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Dish` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Dishes",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#upsert
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Dish` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Dishes",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#exists
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Dishes/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#findById
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Dish` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Dishes/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#find
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
          *
          * @param {function(Array.<Object>,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -8236,27 +5924,122 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
-        R.menuSections = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::get::brand::menuSections"];
-          return action.apply(R, arguments);
-        };
+        "find": {
+          isArray: true,
+          url: urlBase + "/Dishes",
+          method: "GET"
+        },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.menuSections#count
-         * @methodOf cms.gothriveServices.Brand.menuSections
+         * @name cms.gothriveServices.Dish#findOne
+         * @methodOf cms.gothriveServices.Dish
          *
          * @description
          *
-         * Counts menuSections of brand.
+         * Find first instance of the model matched by filter from the data source
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `id` – `{*}` - PersistedModel id
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Dish` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Dishes/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#updateAll
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Dishes/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#deleteById
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Dishes/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#count
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
          *
          *  - `where` – `{object=}` - Criteria to match model instances
          *
@@ -8274,20 +6057,19 @@ module.factory(
          *
          *  - `count` – `{number=}` - 
          */
-        R.menuSections.count = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::count::brand::menuSections"];
-          return action.apply(R, arguments);
-        };
+        "count": {
+          url: urlBase + "/Dishes/count",
+          method: "GET"
+        },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.menuSections#create
-         * @methodOf cms.gothriveServices.Brand.menuSections
+         * @name cms.gothriveServices.Dish#prototype$updateAttributes
+         * @methodOf cms.gothriveServices.Dish
          *
          * @description
          *
-         * Creates a new instance in menuSections of this model.
+         * Update attributes for a model instance and persist it into the data source
          *
          * @param {Object=} parameters Request parameters.
          *
@@ -8309,129 +6091,80 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
-        R.menuSections.create = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::create::brand::menuSections"];
-          return action.apply(R, arguments);
-        };
+        "prototype$updateAttributes": {
+          url: urlBase + "/Dishes/:id",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Brand.dishes.findById() instead.
+        "::findById::Brand::dishes": {
+          url: urlBase + "/Brands/:id/dishes/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Brand.dishes.destroyById() instead.
+        "::destroyById::Brand::dishes": {
+          url: urlBase + "/Brands/:id/dishes/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Brand.dishes.updateById() instead.
+        "::updateById::Brand::dishes": {
+          url: urlBase + "/Brands/:id/dishes/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Brand.dishes() instead.
+        "::get::Brand::dishes": {
+          isArray: true,
+          url: urlBase + "/Brands/:id/dishes",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Brand.dishes.create() instead.
+        "::create::Brand::dishes": {
+          url: urlBase + "/Brands/:id/dishes",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Brand.dishes.destroyAll() instead.
+        "::delete::Brand::dishes": {
+          url: urlBase + "/Brands/:id/dishes",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Brand.dishes.count() instead.
+        "::count::Brand::dishes": {
+          url: urlBase + "/Brands/:id/dishes/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use DishReference.dish() instead.
+        "::get::DishReference::dish": {
+          url: urlBase + "/DishReferences/:id/dish",
+          method: "GET"
+        },
+      }
+    );
+
+
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Brand.menuSections#destroyAll
-         * @methodOf cms.gothriveServices.Brand.menuSections
+         * @name cms.gothriveServices.Dish#updateOrCreate
+         * @methodOf cms.gothriveServices.Dish
          *
          * @description
          *
-         * Deletes all menuSections of this model.
+         * Update an existing model instance or insert a new one into the data source
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.menuSections.destroyAll = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::delete::brand::menuSections"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.menuSections#destroyById
-         * @methodOf cms.gothriveServices.Brand.menuSections
-         *
-         * @description
-         *
-         * Delete a related item by id for menuSections
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for menuSections
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.menuSections.destroyById = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::destroyById::brand::menuSections"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.menuSections#findById
-         * @methodOf cms.gothriveServices.Brand.menuSections
-         *
-         * @description
-         *
-         * Find a related item by id for menuSections
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for menuSections
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        R.menuSections.findById = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::findById::brand::menuSections"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.menuSections#updateById
-         * @methodOf cms.gothriveServices.Brand.menuSections
-         *
-         * @description
-         *
-         * Update a related item by id for menuSections
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for menuSections
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
          *
          * @param {Object} postData Request data.
          *
@@ -8449,12 +6182,927 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
-        R.menuSections.updateById = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::updateById::brand::menuSections"];
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#update
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#destroyById
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#removeById
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name cms.gothriveServices.Dish#modelName
+    * @propertyOf cms.gothriveServices.Dish
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Dish`.
+    */
+    R.modelName = "Dish";
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#brand
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Fetches belongsTo relation brand
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Brand` object.)
+         * </em>
+         */
+        R.brand = function() {
+          var TargetResource = $injector.get("Brand");
+          var action = TargetResource["::get::Dish::brand"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Dish#meal
+         * @methodOf cms.gothriveServices.Dish
+         *
+         * @description
+         *
+         * Fetches belongsTo relation meal
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        R.meal = function() {
+          var TargetResource = $injector.get("Meal");
+          var action = TargetResource["::get::Dish::meal"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name cms.gothriveServices.DishReference
+ * @header cms.gothriveServices.DishReference
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `DishReference` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "DishReference",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/DishReferences/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use DishReference.dish() instead.
+        "prototype$__get__dish": {
+          url: urlBase + "/DishReferences/:id/dish",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.dishes.findById() instead.
+        "::findById::Meal::dishes": {
+          url: urlBase + "/Meals/:id/dishes/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.dishes.destroyById() instead.
+        "::destroyById::Meal::dishes": {
+          url: urlBase + "/Meals/:id/dishes/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Meal.dishes.updateById() instead.
+        "::updateById::Meal::dishes": {
+          url: urlBase + "/Meals/:id/dishes/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Meal.dishes() instead.
+        "::get::Meal::dishes": {
+          isArray: true,
+          url: urlBase + "/Meals/:id/dishes",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.dishes.create() instead.
+        "::create::Meal::dishes": {
+          url: urlBase + "/Meals/:id/dishes",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Meal.dishes.destroyAll() instead.
+        "::delete::Meal::dishes": {
+          url: urlBase + "/Meals/:id/dishes",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Meal.dishes.count() instead.
+        "::count::Meal::dishes": {
+          url: urlBase + "/Meals/:id/dishes/count",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+
+    /**
+    * @ngdoc property
+    * @name cms.gothriveServices.DishReference#modelName
+    * @propertyOf cms.gothriveServices.DishReference
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `DishReference`.
+    */
+    R.modelName = "DishReference";
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.DishReference#dish
+         * @methodOf cms.gothriveServices.DishReference
+         *
+         * @description
+         *
+         * Fetches belongsTo relation dish
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Dish` object.)
+         * </em>
+         */
+        R.dish = function() {
+          var TargetResource = $injector.get("Dish");
+          var action = TargetResource["::get::DishReference::dish"];
+          return action.apply(R, arguments);
+        };
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name cms.gothriveServices.Trainer
+ * @header cms.gothriveServices.Trainer
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `Trainer` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "Trainer",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/Trainers/:id",
+      { 'id': '@id' },
+      {
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#create
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Create a new instance of the model and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        "create": {
+          url: urlBase + "/Trainers",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#upsert
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        "upsert": {
+          url: urlBase + "/Trainers",
+          method: "PUT"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#exists
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Check whether a model instance exists in the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `exists` – `{boolean=}` - 
+         */
+        "exists": {
+          url: urlBase + "/Trainers/:id/exists",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#findById
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Find a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        "findById": {
+          url: urlBase + "/Trainers/:id",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#find
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Find all instances of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        "find": {
+          isArray: true,
+          url: urlBase + "/Trainers",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#findOne
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Find first instance of the model matched by filter from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/Trainers/findOne",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#updateAll
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "updateAll": {
+          url: urlBase + "/Trainers/update",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#deleteById
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "deleteById": {
+          url: urlBase + "/Trainers/:id",
+          method: "DELETE"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#count
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Count instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        "count": {
+          url: urlBase + "/Trainers/count",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#prototype$updateAttributes
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Update attributes for a model instance and persist it into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        "prototype$updateAttributes": {
+          url: urlBase + "/Trainers/:id",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use TrainerReference.trainer() instead.
+        "::get::TrainerReference::trainer": {
+          url: urlBase + "/TrainerReferences/:id/trainer",
+          method: "GET"
+        },
+      }
+    );
+
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#updateOrCreate
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Update an existing model instance or insert a new one into the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        R["updateOrCreate"] = R["upsert"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#update
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Update instances of the model matched by where from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["update"] = R["updateAll"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#destroyById
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["destroyById"] = R["deleteById"];
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Trainer#removeById
+         * @methodOf cms.gothriveServices.Trainer
+         *
+         * @description
+         *
+         * Delete a model instance by id from the data source
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R["removeById"] = R["deleteById"];
+
+
+    /**
+    * @ngdoc property
+    * @name cms.gothriveServices.Trainer#modelName
+    * @propertyOf cms.gothriveServices.Trainer
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `Trainer`.
+    */
+    R.modelName = "Trainer";
+
+
+    return R;
+  }]);
+
+/**
+ * @ngdoc object
+ * @name cms.gothriveServices.TrainerReference
+ * @header cms.gothriveServices.TrainerReference
+ * @object
+ *
+ * @description
+ *
+ * A $resource object for interacting with the `TrainerReference` model.
+ *
+ * ## Example
+ *
+ * See
+ * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
+ * for an example of using this object.
+ *
+ */
+module.factory(
+  "TrainerReference",
+  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
+    var R = Resource(
+      urlBase + "/TrainerReferences/:id",
+      { 'id': '@id' },
+      {
+
+        // INTERNAL. Use TrainerReference.trainer() instead.
+        "prototype$__get__trainer": {
+          url: urlBase + "/TrainerReferences/:id/trainer",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.trainer() instead.
+        "::get::Meal::trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Meal.trainer.create() instead.
+        "::create::Meal::trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Meal.trainer.update() instead.
+        "::update::Meal::trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Meal.trainer.destroy() instead.
+        "::destroy::Meal::trainer": {
+          url: urlBase + "/Meals/:id/trainer",
+          method: "DELETE"
+        },
+      }
+    );
+
+
+
+
+    /**
+    * @ngdoc property
+    * @name cms.gothriveServices.TrainerReference#modelName
+    * @propertyOf cms.gothriveServices.TrainerReference
+    * @description
+    * The name of the model represented by this $resource,
+    * i.e. `TrainerReference`.
+    */
+    R.modelName = "TrainerReference";
+
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.TrainerReference#trainer
+         * @methodOf cms.gothriveServices.TrainerReference
+         *
+         * @description
+         *
+         * Fetches belongsTo relation trainer
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - Model id
+         *
+         *  - `refresh` – `{boolean=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Trainer` object.)
+         * </em>
+         */
+        R.trainer = function() {
+          var TargetResource = $injector.get("Trainer");
+          var action = TargetResource["::get::TrainerReference::trainer"];
           return action.apply(R, arguments);
         };
 
@@ -8614,13 +7262,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name cms.gothriveServices.MenuTemplate
- * @header cms.gothriveServices.MenuTemplate
+ * @name cms.gothriveServices.Delivery
+ * @header cms.gothriveServices.Delivery
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `MenuTemplate` model.
+ * A $resource object for interacting with the `Delivery` model.
  *
  * ## Example
  *
@@ -8630,103 +7278,83 @@ module.factory(
  *
  */
 module.factory(
-  "MenuTemplate",
+  "Delivery",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/MenuTemplates/:id",
+      urlBase + "/Deliveries/:id",
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use MenuTemplate.menuSection() instead.
-        "prototype$__get__menuSection": {
-          url: urlBase + "/MenuTemplates/:id/menuSection",
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#restaurant/search
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `address` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Delivery` object.)
+         * </em>
+         */
+        "restaurant/search": {
+          url: urlBase + "/Deliveries/restaurant/search",
           method: "GET"
         },
 
-        // INTERNAL. Use MenuTemplate.dishes.findById() instead.
-        "prototype$__findById__dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.destroyById() instead.
-        "prototype$__destroyById__dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.updateById() instead.
-        "prototype$__updateById__dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes() instead.
-        "prototype$__get__dishes": {
-          isArray: true,
-          url: urlBase + "/MenuTemplates/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.create() instead.
-        "prototype$__create__dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes",
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#invoke
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "invoke": {
+          url: urlBase + "/Deliveries/invoke",
           method: "POST"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.destroyAll() instead.
-        "prototype$__delete__dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.count() instead.
-        "prototype$__count__dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.findById() instead.
-        "::findById::location::menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.destroyById() instead.
-        "::destroyById::location::menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.updateById() instead.
-        "::updateById::location::menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Location.menuTemplates() instead.
-        "::get::location::menuTemplates": {
-          isArray: true,
-          url: urlBase + "/locations/:id/menuTemplates",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.create() instead.
-        "::create::location::menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.destroyAll() instead.
-        "::delete::location::menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Location.menuTemplates.count() instead.
-        "::count::location::menuTemplates": {
-          url: urlBase + "/locations/:id/menuTemplates/count",
-          method: "GET"
         },
       }
     );
@@ -8736,1629 +7364,14 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name cms.gothriveServices.MenuTemplate#modelName
-    * @propertyOf cms.gothriveServices.MenuTemplate
+    * @name cms.gothriveServices.Delivery#modelName
+    * @propertyOf cms.gothriveServices.Delivery
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `MenuTemplate`.
+    * i.e. `Delivery`.
     */
-    R.modelName = "MenuTemplate";
+    R.modelName = "Delivery";
 
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate#menuSection
-         * @methodOf cms.gothriveServices.MenuTemplate
-         *
-         * @description
-         *
-         * Fetches belongsTo relation menuSection
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `MenuSection` object.)
-         * </em>
-         */
-        R.menuSection = function() {
-          var TargetResource = $injector.get("MenuSection");
-          var action = TargetResource["::get::MenuTemplate::menuSection"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.MenuTemplate.dishes
-     * @header lbServices.MenuTemplate.dishes
-     * @object
-     * @description
-     *
-     * The object `MenuTemplate.dishes` groups methods
-     * manipulating `DishReference` instances related to `MenuTemplate`.
-     *
-     * Call {@link lbServices.MenuTemplate#dishes MenuTemplate.dishes()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate#dishes
-         * @methodOf cms.gothriveServices.MenuTemplate
-         *
-         * @description
-         *
-         * Queries dishes of MenuTemplate.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
-         * </em>
-         */
-        R.dishes = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::get::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate.dishes#count
-         * @methodOf cms.gothriveServices.MenuTemplate.dishes
-         *
-         * @description
-         *
-         * Counts dishes of MenuTemplate.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.dishes.count = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::count::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate.dishes#create
-         * @methodOf cms.gothriveServices.MenuTemplate.dishes
-         *
-         * @description
-         *
-         * Creates a new instance in dishes of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
-         * </em>
-         */
-        R.dishes.create = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::create::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate.dishes#destroyAll
-         * @methodOf cms.gothriveServices.MenuTemplate.dishes
-         *
-         * @description
-         *
-         * Deletes all dishes of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishes.destroyAll = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::delete::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate.dishes#destroyById
-         * @methodOf cms.gothriveServices.MenuTemplate.dishes
-         *
-         * @description
-         *
-         * Delete a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishes.destroyById = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::destroyById::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate.dishes#findById
-         * @methodOf cms.gothriveServices.MenuTemplate.dishes
-         *
-         * @description
-         *
-         * Find a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
-         * </em>
-         */
-        R.dishes.findById = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::findById::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.MenuTemplate.dishes#updateById
-         * @methodOf cms.gothriveServices.MenuTemplate.dishes
-         *
-         * @description
-         *
-         * Update a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
-         * </em>
-         */
-        R.dishes.updateById = function() {
-          var TargetResource = $injector.get("DishReference");
-          var action = TargetResource["::updateById::MenuTemplate::dishes"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name cms.gothriveServices.DishReference
- * @header cms.gothriveServices.DishReference
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `DishReference` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "DishReference",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/DishReferences/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use DishReference.dish() instead.
-        "prototype$__get__dish": {
-          url: urlBase + "/DishReferences/:id/dish",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.findById() instead.
-        "::findById::MenuTemplate::dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.destroyById() instead.
-        "::destroyById::MenuTemplate::dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.updateById() instead.
-        "::updateById::MenuTemplate::dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes() instead.
-        "::get::MenuTemplate::dishes": {
-          isArray: true,
-          url: urlBase + "/MenuTemplates/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.create() instead.
-        "::create::MenuTemplate::dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes",
-          method: "POST"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.destroyAll() instead.
-        "::delete::MenuTemplate::dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use MenuTemplate.dishes.count() instead.
-        "::count::MenuTemplate::dishes": {
-          url: urlBase + "/MenuTemplates/:id/dishes/count",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.DishReference#modelName
-    * @propertyOf cms.gothriveServices.DishReference
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `DishReference`.
-    */
-    R.modelName = "DishReference";
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishReference#dish
-         * @methodOf cms.gothriveServices.DishReference
-         *
-         * @description
-         *
-         * Fetches belongsTo relation dish
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dish = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::get::DishReference::dish"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name cms.gothriveServices.Menu
- * @header cms.gothriveServices.Menu
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `Menu` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "Menu",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/Menus/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use Menu.brand() instead.
-        "prototype$__get__brand": {
-          url: urlBase + "/Menus/:id/brand",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#create
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/Menus",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#upsert
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/Menus",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#exists
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/Menus/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#findById
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/Menus/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#find
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/Menus",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#findOne
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/Menus/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#updateAll
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "updateAll": {
-          url: urlBase + "/Menus/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#deleteById
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "deleteById": {
-          url: urlBase + "/Menus/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#count
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/Menus/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/Menus/:id",
-          method: "PUT"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#updateOrCreate
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Menu` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#update
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#destroyById
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#removeById
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.Menu#modelName
-    * @propertyOf cms.gothriveServices.Menu
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `Menu`.
-    */
-    R.modelName = "Menu";
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Menu#brand
-         * @methodOf cms.gothriveServices.Menu
-         *
-         * @description
-         *
-         * Fetches belongsTo relation brand
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        R.brand = function() {
-          var TargetResource = $injector.get("Brand");
-          var action = TargetResource["::get::Menu::brand"];
-          return action.apply(R, arguments);
-        };
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name cms.gothriveServices.DishSize
- * @header cms.gothriveServices.DishSize
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `DishSize` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "DishSize",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/DishSizes/:id",
-      { 'id': '@id' },
-      {
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#create
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Create a new instance of the model and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        "create": {
-          url: urlBase + "/DishSizes",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#upsert
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        "upsert": {
-          url: urlBase + "/DishSizes",
-          method: "PUT"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#exists
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Check whether a model instance exists in the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `exists` – `{boolean=}` - 
-         */
-        "exists": {
-          url: urlBase + "/DishSizes/:id/exists",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#findById
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Find a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        "findById": {
-          url: urlBase + "/DishSizes/:id",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#find
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Find all instances of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        "find": {
-          isArray: true,
-          url: urlBase + "/DishSizes",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#findOne
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Find first instance of the model matched by filter from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `filter` – `{object=}` - Filter defining fields, where, orderBy, offset, and limit
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        "findOne": {
-          url: urlBase + "/DishSizes/findOne",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#updateAll
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "updateAll": {
-          url: urlBase + "/DishSizes/update",
-          method: "POST"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#deleteById
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "deleteById": {
-          url: urlBase + "/DishSizes/:id",
-          method: "DELETE"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#count
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Count instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        "count": {
-          url: urlBase + "/DishSizes/count",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Update attributes for a model instance and persist it into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        "prototype$updateAttributes": {
-          url: urlBase + "/DishSizes/:id",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use DishPrice.size() instead.
-        "::get::DishPrice::size": {
-          url: urlBase + "/DishPrices/:id/size",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#updateOrCreate
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Update an existing model instance or insert a new one into the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        R["updateOrCreate"] = R["upsert"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#update
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Update instances of the model matched by where from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["update"] = R["updateAll"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#destroyById
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["destroyById"] = R["deleteById"];
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishSize#removeById
-         * @methodOf cms.gothriveServices.DishSize
-         *
-         * @description
-         *
-         * Delete a model instance by id from the data source
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R["removeById"] = R["deleteById"];
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.DishSize#modelName
-    * @propertyOf cms.gothriveServices.DishSize
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `DishSize`.
-    */
-    R.modelName = "DishSize";
-
-
-    return R;
-  }]);
-
-/**
- * @ngdoc object
- * @name cms.gothriveServices.DishPrice
- * @header cms.gothriveServices.DishPrice
- * @object
- *
- * @description
- *
- * A $resource object for interacting with the `DishPrice` model.
- *
- * ## Example
- *
- * See
- * {@link http://docs.angularjs.org/api/ngResource.$resource#example $resource}
- * for an example of using this object.
- *
- */
-module.factory(
-  "DishPrice",
-  ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
-    var R = Resource(
-      urlBase + "/DishPrices/:id",
-      { 'id': '@id' },
-      {
-
-        // INTERNAL. Use DishPrice.size() instead.
-        "prototype$__get__size": {
-          url: urlBase + "/DishPrices/:id/size",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.findById() instead.
-        "::findById::dish::dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.destroyById() instead.
-        "::destroyById::dish::dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.updateById() instead.
-        "::updateById::dish::dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Dish.dishPrices() instead.
-        "::get::dish::dishPrices": {
-          isArray: true,
-          url: urlBase + "/dishes/:id/dishPrices",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.create() instead.
-        "::create::dish::dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.destroyAll() instead.
-        "::delete::dish::dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Dish.dishPrices.count() instead.
-        "::count::dish::dishPrices": {
-          url: urlBase + "/dishes/:id/dishPrices/count",
-          method: "GET"
-        },
-      }
-    );
-
-
-
-
-    /**
-    * @ngdoc property
-    * @name cms.gothriveServices.DishPrice#modelName
-    * @propertyOf cms.gothriveServices.DishPrice
-    * @description
-    * The name of the model represented by this $resource,
-    * i.e. `DishPrice`.
-    */
-    R.modelName = "DishPrice";
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.DishPrice#size
-         * @methodOf cms.gothriveServices.DishPrice
-         *
-         * @description
-         *
-         * Fetches belongsTo relation size
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - Model id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishSize` object.)
-         * </em>
-         */
-        R.size = function() {
-          var TargetResource = $injector.get("DishSize");
-          var action = TargetResource["::get::DishPrice::size"];
-          return action.apply(R, arguments);
-        };
 
     return R;
   }]);

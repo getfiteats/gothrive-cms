@@ -81,12 +81,14 @@ module.exports = {
       'vendor/ng-notifications-bar/dist/ngNotificationsBar.min.js',
       'vendor/ngstorage/ngStorage.min.js',
       'vendor/ngSticky/dist/sticky.min.js',
-      'vendor/ngOnboarding/dist/ng-onboarding.js'
+      'vendor/ngOnboarding/dist/ng-onboarding.js',
+      'vendor/ng-tags-input/ng-tags-input.js'
     ],
     css: [
       'vendor/angucomplete/angucomplete.css',
       'vendor/ng-notifications-bar/dist/ngNotificationsBar.min.css',
-      'vendor/ngOnboarding/dist/ng-onboarding.css'
+      'vendor/ngOnboarding/dist/ng-onboarding.css',
+      'vendor/ng-tags-input/ng-tags-input.css'
     ],
     assets: [
       'vendor/bootstrap/fonts/glyphicons-halflings-regular.eot',
