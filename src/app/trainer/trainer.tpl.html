@@ -1,0 +1,27 @@
+<div class="col-xs-12">
+	<h2>{{submitText}} Trainer</h2>
+	<br>
+</div>
+
+<form class="col-xs-12" name="form" ng-class="{submitted: submitted}" ng-submit="submit()" novalidate>
+	<div class="row">
+			<div class="form-group col-xs-4">
+				<label>First</label>
+				<input ng-model="trainer.first" type="text" class="form-control">
+			</div>
+			<div class="form-group col-xs-4">
+				<label>Last</label>
+				<input ng-model="trainer.last" type="text" class="form-control">
+			</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-8">
+			<label>Summary</label>
+			<textarea ng-model="trainer.summary" class="form-control" rows="5"></textarea>
+		</div>
+	</div>
+	<div class="row">
+			<div class="col-xs-4" cloudinary ng-model="trainer.image"></div>
+	</div>
+	<input class="btn btn-default" type="submit" value="Submit">
+</form>

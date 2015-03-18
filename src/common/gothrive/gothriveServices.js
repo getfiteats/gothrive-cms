@@ -7238,7 +7238,8 @@ module.factory(
          */
         "details": {
           url: urlBase + "/GooglePlaces/details",
-          method: "GET"
+          method: "GET",
+          isArray: true
         },
       }
     );
@@ -7281,13 +7282,13 @@ module.factory(
   "Delivery",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Deliveries/:id",
+      urlBase + "/Delivery/:id",
       { 'id': '@id' },
       {
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Delivery#restaurant/search
+         * @name cms.gothriveServices.Delivery#merchantSearch
          * @methodOf cms.gothriveServices.Delivery
          *
          * @description
@@ -7299,6 +7300,8 @@ module.factory(
          * @param {Object=} parameters Request parameters.
          *
          *  - `address` – `{string=}` - 
+         *
+         *  - `merchantType` – `{string=}` - 
          *
          * @param {function(Object,Object)=} successCb
          *   Success callback with two arguments: `value`, `responseHeaders`.
@@ -7315,8 +7318,8 @@ module.factory(
          * This usually means the response is a `Delivery` object.)
          * </em>
          */
-        "restaurant/search": {
-          url: urlBase + "/Deliveries/restaurant/search",
+        "merchantSearch": {
+          url: urlBase + "/Delivery/merchantSearch",
           method: "GET"
         },
 
@@ -7353,8 +7356,185 @@ module.factory(
          * This method returns no data.
          */
         "invoke": {
-          url: urlBase + "/Deliveries/invoke",
+          url: urlBase + "/Delivery/invoke",
           method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#restaurantMenu
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `restaurantId` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Delivery` object.)
+         * </em>
+         */
+        "restaurantMenu": {
+          url: urlBase + "/Delivery/restaurantMenu",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#restaurantInfo
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `restaurantId` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Delivery` object.)
+         * </em>
+         */
+        "restaurantInfo": {
+          url: urlBase + "/Delivery/restaurantInfo",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#restaurantHours
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `restaurantId` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Delivery` object.)
+         * </em>
+         */
+        "restaurantHours": {
+          url: urlBase + "/Delivery/restaurantHours",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#getDishesByRestaurantId
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `restaurantId` – `{string=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Delivery` object.)
+         * </em>
+         */
+        "getDishesByRestaurantId": {
+          isArray: true,
+          url: urlBase + "/Delivery/restaurantDishes",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Delivery#restaurantSearch
+         * @methodOf cms.gothriveServices.Delivery
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `address` – `{string=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Delivery` object.)
+         * </em>
+         */
+        "restaurantSearch": {
+          isArray: true,
+          url: urlBase + "/Delivery/restaurantSearch",
+          method: "GET"
         },
       }
     );
