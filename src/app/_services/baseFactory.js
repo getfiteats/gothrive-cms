@@ -6,7 +6,7 @@ angular.module('cms')
     this.model = model || {};
 
     if (this.defaults) {
-      setServiceProperties(angular.extend(this.defaults, this.model), this);
+      this.model = angular.extend(this.defaults, this.model);
     }
   }
 
@@ -18,24 +18,15 @@ angular.module('cms')
     this.model[key] = value;
   };
 
-  Service.prototype.toModel = function toModel() {
-    var model = getServiceProperties(this);
-    return model;
-  };
-
-
   Service.prototype.save = function save() {
-    var model = this.toModel();
-    return this.modelClass.create(model).$promise;
+    return this.modelClass.create(this.model).$promise;
   };
 
   Service.prototype.update = function update() {
-    var model = this.toModel();
-    if (model && !model.id) {
+    if (this.model && !this.model.id) {
       throw "Id must be present for update";
     }
-    return new this.modelClass(model).$save();
-
+    return new this.modelClass(this.model).$save();
     //TODO: Figure out why update saves objectid properties as string
     //return Service.updateById(model.id, model);
   };
@@ -104,22 +95,6 @@ angular.module('cms')
       }
       child[fnName] = fn.bind(child);
     });
-  }
-
-  function setServiceProperties(model, service) {
-    Object.keys(model).forEach(function(){
-      service.model[key] = model[key];
-    });
-  }
-
-  function getServiceProperties(service) {
-    var model = {};
-
-    Object.keys(service.model).forEach(function(key){
-       model[key] = service.model[key];
-    });
-
-    return model;
   }
 
   return Service;
