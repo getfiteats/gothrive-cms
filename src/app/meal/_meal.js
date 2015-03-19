@@ -4,7 +4,7 @@ angular.module( 'cms.meal', [
 .config(function config( $stateProvider ) {
   $stateProvider
     .state('createMeal', {
-      url: '/meals',
+      url: '/meals/create',
       views: {
         "main": {
           controller: 'CreateMealController',
@@ -12,5 +12,17 @@ angular.module( 'cms.meal', [
         }
       },
       data: { pageTitle: 'Create Meal' }
+    });
+
+  $stateProvider
+    .state('listMeals', {
+        url: '/meals',
+        views: {
+            "main": {
+                controller: 'ListMealController',
+                templateUrl: 'meal/meal.list.tpl.html'
+            }
+        },
+        data: { pageTitle: 'List Meals' }
     });
 });
