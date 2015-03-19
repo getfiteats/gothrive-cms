@@ -20,8 +20,7 @@ angular.module('cms.meal')
     enableSearch: true,
     externalIdProp: ''
   };
-
-  $scope.dishOptionSettings = {
+  var dishOptionSettings = {
     showCheckAll: false,
     showUncheckAll: false,
     smartButtonMaxItems: 30,
@@ -111,13 +110,22 @@ angular.module('cms.meal')
 
   };
 
-  $scope.submit = function() {
+  $scope.submit = function submit() {
     if (!$scope.selectedTrainer) {
       notifications.showError({message: "A trainer must be selected" });
       return;
     }
-    meal.setTrainerId($scope.selectedTrainer.id);
-    meal.setDishes($scope.selectedDishes);
+    try {
+      //meal.save();
+    } catch(err) {
+
+    }
+  };
+
+  $scope.getDishOptions = function getDishOptions(selectionLimit) {
+    var options = angular.copy(dishOptionSettings);
+    options.selectionLimit = selectionLimit;
+    return options;
   };
 
   function setTrainers(trainers) {
@@ -125,5 +133,6 @@ angular.module('cms.meal')
       return { label: trainer.first + ' ' + trainer.last, id: trainer.id };
     });
   }
+
 
 });

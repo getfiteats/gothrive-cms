@@ -3,8 +3,7 @@ angular.module('cms')
 
   function Service(model, modelClass) {
     this.modelClass = modelClass;
-    this.model = model || {};
-
+    this.model = this.toViewSchema(model) || {};
     if (this.defaults) {
       this.model = angular.extend(this.defaults, this.model);
     }
@@ -18,23 +17,33 @@ angular.module('cms')
     this.model[key] = value;
   };
 
+  // Transform for DB
+  Service.prototype.toStorageSchema = function() {
+    return this.model;
+  };
+
+  // Transform for UI
+  Service.prototype.toViewSchema = function(model) {
+    return model;
+  };
+
   Service.prototype.save = function save() {
-    return this.modelClass.create(this.model).$promise;
+    var model = this.toStorageSchema();
+    return this.modelClass.create(model).$promise;
   };
 
   Service.prototype.update = function update() {
-    if (this.model && !this.model.id) {
+    var model = this.toStorageSchema();
+
+    if (model && !model.id) {
       throw "Id must be present for update";
     }
-    return new this.modelClass(this.model).$save();
+    return new this.modelClass(model).$save();
     //TODO: Figure out why update saves objectid properties as string
     //return Service.updateById(model.id, model);
   };
 
-  Service.prototype._super = function() {
-    var args = [].splice.call(arguments, 0, arguments.length);
-    Service.apply(this, args);
-  };
+  Service.prototype._super = Service;
  
   Service.fromModel = function(model) {
     var service =  Service.createInstance.call(this, model);
@@ -81,19 +90,31 @@ angular.module('cms')
 
   Service.extend = function(child, modelClass) {
     child.modelClass = modelClass;
-    extendStaticMethods(child, Service);  
-    angular.extend(child.prototype, Service.prototype);
+    extendStaticProperties(child, Service);
+    extendPrototype(child, Service);
   };
 
-  function extendStaticMethods(child, Service) {
-    var fn;
+  function extendPrototype(child, Service) {
+    Object.keys(Service.prototype).forEach(function(fnName){
+      if (!child.prototype.hasOwnProperty(fnName)) {
+        child.prototype[fnName] = Service.prototype[fnName];
+      }
+    });
+  }
+
+  function extendStaticProperties(child, Service) {
+    var prop;
     var statics = Object.keys(Service);
-    statics.forEach(function(fnName){
-      fn = Service[fnName];
-      if (typeof fn !== "function") {
+    statics.forEach(function(propName){
+      if (child.hasOwnProperty(propName)) {
         return;
       }
-      child[fnName] = fn.bind(child);
+      prop = Service[propName];
+      if (typeof prop !== "function") {
+        child[propName] = prop;
+      } else {
+        child[propName] = prop.bind(child);
+      }
     });
   }
 

@@ -17,14 +17,24 @@ angular.module('cms')
 
   DeliveryService.formatDishes = function(dishes) {
     return dishes.map(function(dish){
-      dish.selectedOptions = {};
+      var config = {};
+      var size = {};
+
       dish.optionGroups.forEach(function(optionGroup){
-        dish.selectedOptions[optionGroup.id] = [];
+        config[optionGroup.id] = [];
         optionGroup.options.forEach(function(option){
           option.label = option.name + ' +$' + option.price;
         });
       });
-      return { id: dish.src.externalId, label: dish.name, original: dish };
+
+      dish.priceOptions.forEach(function(priceOption){
+        size[optionGroup.id] = [];
+        priceOption.options.forEach(function(option){
+          option.label = option.name + ' +$' + option.price;
+        });
+      });
+
+      return { id: dish.src.externalId, label: dish.name, config: config, original: dish };
     });
   };
 

@@ -4,19 +4,19 @@ angular.module('cms')
   function MealService(data) {
     this.defaults = {
       trainer: {},
-      dishes: []
+      dishes: [],
+      summary: ''
     };
     this._super(data, Meal);
   }
 
-  MealService.prototype.setTrainerId = function(trainerId) {
-    this.model.trainer.id = trainerId;
-  };
-
-  MealService.prototype.setDishes = function(dishes, configurations) {
-    this.model.dishes = dishes.map(function(dish){
+  MealService.prototype.toStorageSchema = function() {
+    var model = {};
+    model.dishes = this.model.selectedDishes.map(function(dish){
       return dish.id;
     });
+    model.trainer.id = this.model.selectedTrainer.id;
+    return model;
   };
 
   BaseFactory.extend(MealService, Meal);

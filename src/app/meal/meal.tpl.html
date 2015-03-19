@@ -3,7 +3,7 @@
 	<br>
 </div>
 
-<form class="col-xs-8" name="form" ng-class="{submitted: submitted}" ng-submit="submit()" novalidate>
+<form class="col-xs-8" name="form" ng-submit="submit()" novalidate>
 
 	<div class="row">
 		<div class="col-xs-12">
@@ -31,19 +31,20 @@
 	<hr />
 
 	<div class="row">
-		<div class="col-xs-12">
+		<div class="dishes col-xs-12">
 			<h3>Dishes</h3>
 			<span class="dish" ng-repeat="dish in selectedDishes">
 				<div class="form-group">
 					<label>{{dish.label}}</label>
 				</div>
 				<div class="form-group" ng-repeat="optionGroup in dish.original.optionGroups">
-					<div ng-dropdown-multiselect="" options="optionGroup.options" translation-texts="{buttonDefaultText: optionGroup.name}" selected-model="dish.original.selectedOptions[optionGroup.id]" extra-settings="dishOptionSettings"></div>
+					<div ng-dropdown-multiselect="" options="optionGroup.options" translation-texts="{buttonDefaultText: optionGroup.name}" selected-model="dish.config[optionGroup.id]" extra-settings="{showCheckAll: false, showUncheckAll: false,smartButtonMaxItems: 30,dynamicTitle: true,externalIdProp: '', selectionLimit: optionGroup.maxSelection}"></div>
+					 <div class="error-msg" ng-show="form.$submitted && dish.config[optionGroup.id].length < optionGroup.minSelection">You must select at least {{optionGroup.minSelection}} option(s).</div>
 				</div>
 				<div class="form-group">
 					<label>Special Instructions</label>
 					<br>
-					<textarea class='form-control' rows="2"></textarea>
+					<textarea ng-model="dish.instructions" class='form-control' rows="2"></textarea>
 				</div>
 			</span>
 		</div>
@@ -65,12 +66,12 @@
 		<div class="col-xs-6">
 			<div class="form-group">
 				<label for="name">Name</label>
-				<input type="text" class="form-control">
+				<input ng-required="true" type="text" ng-model="meal.name" class="form-control">
 			</div>
 			<div class="form-group">
 				<label>Snippet</label>
 				<br>
-				<textarea class="form-control" rows="4"></textarea>
+				<textarea class="form-control" ng-model="meal.summary" rows="4"></textarea>
 			</div>
 		</div>
 		<div class="col-xs-6">
