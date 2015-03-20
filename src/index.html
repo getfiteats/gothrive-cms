@@ -25,7 +25,7 @@
         .constant('initData', <%= initData %>);
     </script>
   </head>
-  <body>
+  <body ng-class="bodyClass">
     <div notifications-bar class="notifications"></div notifications-bar>
     <div class="container" ng-include="'header/header.tpl.html'"></div>
     <div class="container main" ui-view="main"></div>

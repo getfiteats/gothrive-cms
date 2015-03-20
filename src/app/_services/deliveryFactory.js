@@ -21,20 +21,21 @@ angular.module('cms')
       var size = {};
 
       dish.optionGroups.forEach(function(optionGroup){
-        config[optionGroup.id] = [];
+        var options = [];
+        if (optionGroup.maxSelection === 1) {
+          options = {};
+        }
+        config[optionGroup.id] = {name: optionGroup.name, options: options};
         optionGroup.options.forEach(function(option){
           option.label = option.name + ' +$' + option.price;
         });
       });
 
       dish.priceOptions.forEach(function(priceOption){
-        size[optionGroup.id] = [];
-        priceOption.options.forEach(function(option){
-          option.label = option.name + ' +$' + option.price;
-        });
+        priceOption.label = priceOption.name + ' +$' + priceOption.price;
       });
 
-      return { id: dish.src.externalId, label: dish.name, config: config, original: dish };
+      return { id: dish.src.externalId, label: dish.name, config: config, size: size, original: dish };
     });
   };
 

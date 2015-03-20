@@ -11,7 +11,25 @@ angular.module( 'cms.meal', [
           templateUrl: 'meal/meal.tpl.html'
         }
       },
-      data: { pageTitle: 'Create Meal' }
+      data: { 
+        pageTitle: 'Create Meal',
+        bodyClass: 'meals'
+      }
+    });
+
+  $stateProvider
+    .state('createMeal', {
+      url: '/meals/:mealId',
+      views: {
+        "main": {
+          controller: 'EditeMealController',
+          templateUrl: 'meal/meal.tpl.html'
+        }
+      },
+      data: { 
+        pageTitle: 'Edit Meal',
+        bodyClass: 'meals'
+      }
     });
 
   $stateProvider
@@ -23,6 +41,9 @@ angular.module( 'cms.meal', [
                 templateUrl: 'meal/meal.list.tpl.html'
             }
         },
-        data: { pageTitle: 'List Meals' }
+        data: { 
+          pageTitle: 'List Meals',
+          bodyClass: 'meals'
+        }
     });
 });

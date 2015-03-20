@@ -10,6 +10,8 @@ angular.module('cms.meal')
     dynamicTitle: true,
     selectionLimit: 1,
     enableSearch: true,
+    closeOnSelect: true,
+    closeOnDeselect: true,
     externalIdProp: ''
   };
   var selectMultipleSettings = {
@@ -18,6 +20,8 @@ angular.module('cms.meal')
     smartButtonMaxItems: 30,
     dynamicTitle: true,
     enableSearch: true,
+    closeOnSelect: true,
+    closeOnDeselect: true,
     externalIdProp: ''
   };
   var dishOptionSettings = {
@@ -25,8 +29,12 @@ angular.module('cms.meal')
     showUncheckAll: false,
     smartButtonMaxItems: 30,
     dynamicTitle: true,
+    closeOnSelect: true,
+    closeOnDeselect: true,
     externalIdProp: ''
   };
+
+  $scope.bodyClass = 'meal';
 
   $scope.submitText = "Create";
 
@@ -60,26 +68,18 @@ angular.module('cms.meal')
   });
 
   // Restaurants Dropdown
-  $scope.selectedRestaurant = {};
   $scope.restaurantSettings = selectOneSettings;
   $scope.restaurantTexts = {
     buttonDefaultText: "Select Restaurant"
   };
 
   // Dishes Dropdown
-  $scope.selectedDishes = [];
-  $scope.dishes = [
-    { label: 'Sandwich', id: "N1" },
-    { label: 'Burger', id: "N2" },
-    { label: 'Milk', id: "N3" }
-  ];
   $scope.dishSettings = selectMultipleSettings;
   $scope.dishTexts = {
     buttonDefaultText: "Select Dishes"
   };
 
   // Trainer Dropdown
-  $scope.selectedTrainer = {};
   $scope.trainerSettings = selectOneSettings;
   $scope.trainerTexts = {
     buttonDefaultText: "Select Trainer"
@@ -95,28 +95,25 @@ angular.module('cms.meal')
       notifications.showError({message: "An error occured loading trainers " + err.statusText });
     });
 
-  $scope.loadTags = function(query) {
-    console.log('$query', query);
-  };
-
   $scope.onRestaurantSelected = function(restaurant) {
+    $scope.meal.dishes = [];
     DeliveryFactory.modelClass.getDishesByRestaurantId({restaurantId: restaurant.id}).$promise
       .then(function(dishes){
         $scope.dishes = DeliveryFactory.formatDishes(dishes);
       });
   };
 
-  $scope.onDishSelected = function(dish) {
-
+  $scope.calculateTotal = function() {
+    $scope.total = meal.calculateTotal();
   };
 
   $scope.submit = function submit() {
-    if (!$scope.selectedTrainer) {
+    if (!$scope.meal.trainer.id) {
       notifications.showError({message: "A trainer must be selected" });
       return;
     }
     try {
-      //meal.save();
+      meal.save();
     } catch(err) {
 
     }

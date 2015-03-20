@@ -80,7 +80,7 @@ module.exports = {
       'vendor/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js',
       'vendor/ng-notifications-bar/dist/ngNotificationsBar.min.js',
       'vendor/ngstorage/ngStorage.min.js',
-      'vendor/ngSticky/dist/sticky.min.js',
+      'vendor/ngSticky/lib/sticky.js',
       'vendor/ngOnboarding/dist/ng-onboarding.js',
       'vendor/ng-tags-input/ng-tags-input.js'
     ],

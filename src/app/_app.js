@@ -51,9 +51,13 @@ angular.module( 'cms', [
     $rootScope.accessTokenId = LoopBackAuth.accessTokenId;
   }
   $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    if ( angular.isDefined( toState.data.pageTitle ) ) {
+    if (angular.isDefined(toState.data.pageTitle)) {
       $scope.pageTitle = toState.data.pageTitle + ' | GoThrive - CMS' ;
     }
+    if (angular.isDefined(toState.data.bodyClass)) {
+      $scope.bodyClass = toState.data.bodyClass;
+    }
+    
     $scope.userAuthenticated = User.isAuthenticated();
     $scope.breadcrumbs = breadcrumbs.update();
     $log.info("$scope.userAuthenticated", $scope.userAuthenticated, $scope.breadcrumbs);
