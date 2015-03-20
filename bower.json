@@ -20,7 +20,8 @@
     "bootstrap-social": "~4.8.0",
     "ngstorage": "~0.3.0",
     "ngSticky": "~1.7.9",
-    "ng-tags-input": "2.2.0"
+    "ng-tags-input": "2.2.0",
+    "angular-loading-bar": "~0.7.1"
   },
   "resolutions": {
     "lodash": "~3.1.0"

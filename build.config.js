@@ -82,13 +82,15 @@ module.exports = {
       'vendor/ngstorage/ngStorage.min.js',
       'vendor/ngSticky/lib/sticky.js',
       'vendor/ngOnboarding/dist/ng-onboarding.js',
-      'vendor/ng-tags-input/ng-tags-input.js'
+      'vendor/ng-tags-input/ng-tags-input.js',
+      'vendor/angular-loading-bar/build/loading-bar.js'
     ],
     css: [
       'vendor/angucomplete/angucomplete.css',
       'vendor/ng-notifications-bar/dist/ngNotificationsBar.min.css',
       'vendor/ngOnboarding/dist/ng-onboarding.css',
-      'vendor/ng-tags-input/ng-tags-input.css'
+      'vendor/ng-tags-input/ng-tags-input.css',
+      'vendor/angular-loading-bar/build/loading-bar.css'
     ],
     assets: [
       'vendor/bootstrap/fonts/glyphicons-halflings-regular.eot',

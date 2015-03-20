@@ -1,5 +1,6 @@
 angular.module( 'cms.meal', [
-  'ui.router'
+  'ui.router',
+  'angular-loading-bar'
 ])
 .config(function config( $stateProvider ) {
   $stateProvider
@@ -18,7 +19,7 @@ angular.module( 'cms.meal', [
     });
 
   $stateProvider
-    .state('createMeal', {
+    .state('editMeal', {
       url: '/meals/:mealId',
       views: {
         "main": {
