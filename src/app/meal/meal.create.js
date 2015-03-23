@@ -52,32 +52,15 @@ angular.module('cms.meal')
     GooglePlacesFactory.modelClass.details({placeId: placeId}).$promise
       .then(function(place){
         if (!place.length) {
-          notifications.showError({message: "An error occured loading place"});
-          return;
+          throw new Error("no places found");
         }
-        var address = GooglePlacesFactory.formatAddress(place[0].address_components);
-        var deliveryAddress = address.address + ',' + address.zip;
-        return Delivery.restaurantSearch({address: deliveryAddress}).$promise;
-      })
-      .then(function(restaurants){
-        $scope.restaurants = DeliveryFactory.formatRestaurants(restaurants);
+        setBrand(place[0]);
+        $scope.meal.dishes = [{}];
       })
       .catch(function(err){
-        notifications.showError({message: "An error occured loading restaurants " + err});
+        notifications.showError({message: "An error occured loading place: " + err});
       });
   });
-
-  // Restaurants Dropdown
-  $scope.restaurantSettings = selectOneSettings;
-  $scope.restaurantTexts = {
-    buttonDefaultText: "Select Restaurant"
-  };
-
-  // Dishes Dropdown
-  $scope.dishSettings = selectMultipleSettings;
-  $scope.dishTexts = {
-    buttonDefaultText: "Select Dishes"
-  };
 
   // Trainer Dropdown
   $scope.trainerSettings = selectOneSettings;
@@ -95,17 +78,6 @@ angular.module('cms.meal')
       notifications.showError({message: "An error occured loading trainers " + err.statusText });
     });
 
-  $scope.onRestaurantSelected = function(restaurant) {
-    $scope.meal.dishes = [];
-    DeliveryFactory.modelClass.getDishesByRestaurantId({restaurantId: restaurant.id}).$promise
-      .then(function(dishes){
-        $scope.dishes = DeliveryFactory.formatDishes(dishes);
-      });
-  };
-
-  $scope.calculateTotal = function() {
-    $scope.total = meal.calculateTotal();
-  };
 
   $scope.submit = function submit() {
     if (!$scope.meal.trainer.id) {
@@ -122,10 +94,8 @@ angular.module('cms.meal')
       });
   };
 
-  $scope.getDishOptions = function getDishOptions(selectionLimit) {
-    var options = angular.copy(dishOptionSettings);
-    options.selectionLimit = selectionLimit;
-    return options;
+  $scope.addDish = function() {
+    $scope.meal.dishes.push({});
   };
 
   function setTrainers(trainers) {
@@ -134,5 +104,24 @@ angular.module('cms.meal')
     });
   }
 
+  function setBrand(place) {
+    var schedule;
+
+    $scope.meal.brand.address = place.address_components[0].long_name + ' ' + place.address_components[1].long_name;
+    $scope.meal.brand.city = place.address_components[2].long_name;
+    $scope.meal.brand.state = place.address_components[3].long_name;
+    $scope.meal.brand.country = place.address_components[4].long_name;
+    $scope.meal.brand.zip = place.address_components[5].long_name;
+    $scope.meal.brand.phone = place.formatted_phone_number.replace(/[()-]| /g,'');
+    //$scope.meal.brand.setGeo(place.geometry.location.lng, place.geometry.location.lat);
+
+    if (place.opening_hours && place.opening_hours.periods) {
+      schedule = [];
+      place.opening_hours.periods.forEach(function(period) {
+        schedule.push({day: period.open.day, startTime: period.open.time, endTime: period.close.time});
+      });
+      $scope.meal.brand.schedule = schedule;
+    }
+  }
 
 });

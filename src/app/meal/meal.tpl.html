@@ -19,46 +19,56 @@
 					 inputclass="form-control">
 				</div>
 			</div>
-			<div class="form-group" ng-show="selectedPlace.originalObject">
-				<div ng-dropdown-multiselect="" options="restaurants" translation-texts="restaurantTexts" selected-model="meal.brand" extra-settings="restaurantSettings" events="{onItemSelect:onRestaurantSelected}"></div>
-			</div>
-			<div class="form-group" ng-show="edit">
-				<span class="restaurant-label">{{meal.brand.name}}</span>
-			</div>
-			<div class="form-group" ng-show="meal.brand.id">
-				<div ng-dropdown-multiselect="" options="dishes" translation-texts="dishTexts" selected-model="meal.dishes" extra-settings="dishSettings" events="{onItemSelect:calculateTotal,onItemDeselect:calculateTotal}"></div>
-			</div>
+			<span ng-show="meal.brand.address">
+				<div class="form-group row">
+					<div class="col-md-5">
+						<label>Address</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.address" />
+					</div>
+					<div class="col-md-3">
+						<label>City</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.city" />
+					</div>
+					<div class="col-md-2">
+						<label>State</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.state" />
+					</div>
+					<div class="col-md-2">
+						<label>Country</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.country" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-4">
+						<label>Zip</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.zip" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-md-4">
+						<label>Phone</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.phone" />
+					</div>
+				</div>
+			</span>
 		</div>
 	</div>
-	
+		
 	<hr />
-	
-	<div class="row" id="totals" sticky offset="0">
-		<div class="col-xs-8 restaurant-label">
-			{{meal.brand.label}}
-		</div>
-		<div class='col-xs-4 totals-meta' ng-show="meal.brand.id">
-			<p>Delivery Minimum: {{meal.brand.original.minimum|currency}}</p>
-			<p>Total Cost: <span ng-class="{red: total < meal.brand.original.minimum}">{{total|currency}}</span> </p>
-		</div>
-	</div>
 
 	<div class="row">
-		<div class="dishes col-xs-12">
+		<div class="dishes col-xs-12" ng-show="meal.brand.address">
 			<h3>Dishes</h3>
-			<div class="dish" ng-repeat="dish in meal.dishes" ng-class="{odd: $index%2}">
-				<div class="form-group">
-					<label class="dish-title">{{dish.label}}</label> - {{dish.original.price|currency}}
+			<div class="dish no-gutter" ng-repeat="dish in meal.dishes" ng-class="{odd: $index%2}">
+				<div class="col col-xs-10">
+					<label>Name</label>
+					<input type="text" ng-model="dish.name" class="form-control">
 				</div>
-
-				<div class="form-group" ng-if="dish.original.priceOptions.length">
-					<div ng-dropdown-multiselect="" options="dish.original.priceOptions" translation-texts="{buttonDefaultText: 'Size'}" selected-model="dish.size" extra-settings="{showCheckAll: false, showUncheckAll: false,smartButtonMaxItems: 30,dynamicTitle: true, closeOnSelect: true, externalIdProp: '', selectionLimit: 1}" events="{onItemSelect:calculateTotal,onItemDeselect:calculateTotal}"></div>
-					 <div class="error-msg" ng-show="form.$submitted && !dish.size.id">You must select a size.</div>
-				</div>
-
-				<div class="form-group" ng-repeat="optionGroup in dish.original.optionGroups">
-					<div ng-dropdown-multiselect="" options="optionGroup.options" translation-texts="{buttonDefaultText: optionGroup.name}" selected-model="dish.config[optionGroup.id].options" extra-settings="{showCheckAll: false, showUncheckAll: false,smartButtonMaxItems: 30,dynamicTitle: true,externalIdProp: '', closeOnSelect: true, selectionLimit: optionGroup.maxSelection}" events="{onItemSelect:calculateTotal, onItemDeselect:calculateTotal}"></div>
-					 <div class="error-msg" ng-show="form.$submitted && dish.config[optionGroup.id].options.length < optionGroup.minSelection">You must select at least {{optionGroup.minSelection}} option(s).</div>
+				<div class="col col-xs-2">
+					<label>Price</label>
+					<input type="text" ng-model="dish.price" class="form-control">
 				</div>
 				<div class="form-group">
 					<label>Special Instructions</label>
@@ -66,10 +76,11 @@
 					<textarea ng-model="dish.instructions" class='form-control' rows="2"></textarea>
 				</div>
 			</div>
+			<button id="addDish" type="button" ng-click="addDish()" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i> Add Dish</button>
+			<hr />
 		</div>
 	</div>
 	
-	<hr />
 
 	<div class="row">
 		<div class="col-xs-12">
