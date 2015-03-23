@@ -23,7 +23,7 @@ angular.module( 'cms.meal', [
       url: '/meals/:mealId',
       views: {
         "main": {
-          controller: 'EditeMealController',
+          controller: 'EditMealController',
           templateUrl: 'meal/meal.tpl.html'
         }
       },

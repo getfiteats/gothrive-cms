@@ -1,5 +1,5 @@
 angular.module('cms')
-.factory('MealFactory', function MealFactory($log, $q, BaseFactory, Meal){
+.factory('MealFactory', function MealFactory($log, $q, BaseFactory, Meal, DeliveryFactory){
 
   function MealService(data) {
     this.defaults = {
@@ -85,8 +85,10 @@ angular.module('cms')
         return prev + current;
       }, 0);
 
+      total += optionPrice;
+
       if (sizePrice) {
-        total += optionPrice + sizePrice;
+        total += sizePrice;
       } else {
         total += dish.original.price;
       }

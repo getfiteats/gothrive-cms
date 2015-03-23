@@ -22,6 +22,9 @@
 			<div class="form-group" ng-show="selectedPlace.originalObject">
 				<div ng-dropdown-multiselect="" options="restaurants" translation-texts="restaurantTexts" selected-model="meal.brand" extra-settings="restaurantSettings" events="{onItemSelect:onRestaurantSelected}"></div>
 			</div>
+			<div class="form-group" ng-show="edit">
+				<span class="restaurant-label">{{meal.brand.name}}</span>
+			</div>
 			<div class="form-group" ng-show="meal.brand.id">
 				<div ng-dropdown-multiselect="" options="dishes" translation-texts="dishTexts" selected-model="meal.dishes" extra-settings="dishSettings" events="{onItemSelect:calculateTotal,onItemDeselect:calculateTotal}"></div>
 			</div>
@@ -54,7 +57,7 @@
 				</div>
 
 				<div class="form-group" ng-repeat="optionGroup in dish.original.optionGroups">
-					<div ng-dropdown-multiselect="" options="optionGroup.options" translation-texts="{buttonDefaultText: optionGroup.name}" selected-model="dish.config[optionGroup.id].options" extra-settings="{showCheckAll: false, showUncheckAll: false,smartButtonMaxItems: 30,dynamicTitle: true,externalIdProp: '', closeOnSelect: true, selectionLimit: optionGroup.maxSelection}" events="{onItemSelect:calculateTotal}"></div>
+					<div ng-dropdown-multiselect="" options="optionGroup.options" translation-texts="{buttonDefaultText: optionGroup.name}" selected-model="dish.config[optionGroup.id].options" extra-settings="{showCheckAll: false, showUncheckAll: false,smartButtonMaxItems: 30,dynamicTitle: true,externalIdProp: '', closeOnSelect: true, selectionLimit: optionGroup.maxSelection}" events="{onItemSelect:calculateTotal, onItemDeselect:calculateTotal}"></div>
 					 <div class="error-msg" ng-show="form.$submitted && dish.config[optionGroup.id].options.length < optionGroup.minSelection">You must select at least {{optionGroup.minSelection}} option(s).</div>
 				</div>
 				<div class="form-group">

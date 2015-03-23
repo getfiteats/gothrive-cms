@@ -1,7 +1,48 @@
 angular.module('cms.meal')
-.controller('CreateMealController', function MealController( $scope, $state, notifications, User, Trainer, Delivery, GooglePlacesFactory, MealFactory, DeliveryFactory) {
+.controller('EditMealController', function EditMealController( $scope, $state, $stateParams, notifications, User, Trainer, Delivery, GooglePlacesFactory, MealFactory, DeliveryFactory) {
   
-  var meal = MealFactory.getService();
+  MealFactory.getServiceById($stateParams.mealId, [
+      {
+        relation: 'brand'
+      },
+      {
+        relation: 'dishes',
+        scope: {
+          include: {
+            relation: 'dish'
+          }
+        }
+      }
+    ])
+    .then(init)
+    .catch(function(err){
+      notifications.showError({message: "An error occured loading meal " + err.data.error.message});
+    });
+
+
+  function init(meal) {
+    $scope.meal = meal.model;
+    DeliveryFactory.modelClass.getDishesByRestaurantId({restaurantId: meal.model.brand.src[0].externalId}).$promise
+      .then(function(dishes){
+        $scope.dishes = DeliveryFactory.formatDishes(dishes);
+        
+        var editDishes = DeliveryFactory.formatDishes($scope.meal.dishes.map(function(dish){
+          return dishes.filter(function(_dish){
+            return _dish.src.externalId === dish.externalId;
+          })[0];
+        }));
+
+        $scope.meal.dishes = $scope.meal.dishes.map(function(dish){
+          var _dish = editDishes.filter(function(_dish){
+            return _dish.id === dish.externalId;
+          })[0];
+          _dish.original.id = dish.id;
+          _dish.config = dish.config;
+          return _dish;
+        });
+      });
+  }
+  
   var trainers;
   var selectOneSettings = {
     showCheckAll: false,
@@ -36,7 +77,9 @@ angular.module('cms.meal')
 
   $scope.bodyClass = 'meal';
 
-  $scope.submitText = "Create";
+  $scope.submitText = "Edit";
+
+  $scope.edit = true;
 
   $scope.selectedPlace = {};
 
@@ -87,7 +130,6 @@ angular.module('cms.meal')
 
   $scope.trainers = [];
   
-  $scope.meal = meal.model;
 
   Trainer.find().$promise
     .then(setTrainers)
@@ -112,14 +154,11 @@ angular.module('cms.meal')
       notifications.showError({message: "A trainer must be selected" });
       return;
     }
+    try {
+      meal.save();
+    } catch(err) {
 
-    meal.save()
-      .then(function(model){
-        notifications.showSuccess({message: "Meal '" + model.name + "' was created" });
-      })
-      .catch(function(err){
-        notifications.showError({message: "An error occured saving meal: " + err.data.error.message});
-      });
+    }
   };
 
   $scope.getDishOptions = function getDishOptions(selectionLimit) {
