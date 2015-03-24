@@ -3,6 +3,24 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("../fonts/glyphicons-halflings-regular.eot");
+  src: url("../fonts/glyphicons-halflings-regular.eot") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.woof") format("woff");
+}
+/* line 24, ../sass/_glyphicons.scss */
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* line 37, ../sass/_glyphicons.scss */
 .glyphicon-asterisk:before {
   content: "\2a";
@@ -1077,16 +1095,19 @@ body {
 /* line 27, ../sass/ngNotificationsBar.scss */
 .notifications .error {
   background-color: #F64747;
+  border-bottom: 1px solid #f31515;
 }
-/* line 32, ../sass/ngNotificationsBar.scss */
+/* line 33, ../sass/ngNotificationsBar.scss */
 .notifications .success {
   background-color: #03C9A9;
+  border-bottom: 1px solid #02aa8f;
 }
-/* line 37, ../sass/ngNotificationsBar.scss */
+/* line 39, ../sass/ngNotificationsBar.scss */
 .notifications .warning {
   background-color: #F7CA18;
+  border-bottom: 1px solid #e7ba08;
 }
-/* line 42, ../sass/ngNotificationsBar.scss */
+/* line 45, ../sass/ngNotificationsBar.scss */
 .notifications .close-click {
   font-size: 12px;
   cursor: pointer;

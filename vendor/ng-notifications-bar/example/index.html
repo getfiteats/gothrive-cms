@@ -4,14 +4,8 @@
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 
-	<link rel="stylesheet" type="text/css" href="../dist/ngNotificationsBar.min.css">
+	<link rel="stylesheet" type="text/css" href="dist/ngNotificationsBar.min.css">
 
-	<script src="../bower_components/angular/angular.js"></script>
-	<script src="../src/ngNotificationsBar.js"></script>
-
-	<!-- <script src="../dist/ngNotificationsBar.min.js"></script> -->
-
-	<script src="js/app.js"></script>
 
 	<link href='http://fonts.googleapis.com/css?family=Merriweather:900|Titillium+Web:300,700|Source+Code+Pro:300' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:300,700' rel='stylesheet' type='text/css'>
@@ -38,7 +32,7 @@ app.controller(<span class="str">'main'</span>, function ($scope, notifications)
 		notifications.showError(<span class="str">'Oops! Something bad just happend!'</span>);
 	};
 	$scope.showWarning = function () {
-		notifications.showWarning(<span class="str">'Hey! Take a look here..'</span>);
+		notifications.showWarning(<span class="str">'Hey! Take a look &lt;em&gt;here&lt;/em&gt;..'</span>);
 	};
 	$scope.showSuccess = function () {
 		notifications.showSuccess(<span class="str">'Congrats! Life is great!'</span>);
@@ -50,6 +44,7 @@ app.controller(<span class="str">'main'</span>, function ($scope, notifications)
 		<button type="submit" class="btn btn-error" ng-click="showError()">Show Error</button>
 		<button type="submit" class="btn btn-warning" ng-click="showWarning()">Show Warning</button>
 		<button type="submit" class="btn btn-success" ng-click="showSuccess()">Show Success</button>
+		<button type="submit" class="btn" ng-click="closeAll()">Close All</button>
 	</section>
 
 	<footer>
@@ -62,6 +57,11 @@ app.controller(<span class="str">'main'</span>, function ($scope, notifications)
 
 	<a href="https://github.com/alexanderbeletsky/ng-notifications-bar" class="github-ribbon">Fork on Github</a>
 
- <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	<script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<script src="dist/ngNotificationsBar.min.js"></script>
+	<script src="js/app.js"></script>
+
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </body>
 </html>

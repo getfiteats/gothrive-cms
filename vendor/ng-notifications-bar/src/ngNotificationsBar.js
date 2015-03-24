@@ -1,21 +1,14 @@
 (function (root, factory) {
 	if (typeof exports === 'object') {
-		// CommonJS
 		module.exports = factory(root, require('angular'));
 	} else if (typeof define === 'function' && define.amd) {
-		// AMD
 		define(['angular'], function (angular) {
 			return (root.ngNotificationsBar = factory(root, angular));
 		});
 	} else {
-		// Global Variables
 		root.ngNotificationsBar = factory(root, root.angular);
 	}
 }(this, function (window, angular) {
-	return ngNotificationsBar(window, angular);
-}));
-
-function ngNotificationsBar(window, angular) {
 	var module = angular.module('ngNotificationsBar', []);
 
 	module.provider('notificationsConfig', function() {
@@ -28,6 +21,15 @@ function ngNotificationsBar(window, angular) {
 		function getHideDelay(){
 			return config.hideDelay;
 		}
+
+		function setAcceptHTML(value){
+			config.acceptHTML = value;
+		}
+
+		function getAcceptHTML(){
+			return config.acceptHTML;
+		}
+
 
 		function setAutoHide(value){
 			config.autoHide = value;
@@ -42,11 +44,15 @@ function ngNotificationsBar(window, angular) {
 
 			setAutoHide: setAutoHide,
 
+			setAcceptHTML: setAcceptHTML,
+
 			$get: function(){
 				return {
 					getHideDelay: getHideDelay,
 
-					getAutoHide: getAutoHide
+					getAutoHide: getAutoHide,
+
+					getAcceptHTML: getAcceptHTML
 				};
 			}
 		};
@@ -65,24 +71,40 @@ function ngNotificationsBar(window, angular) {
 			$rootScope.$broadcast('notifications:success', message);
 		};
 
+		var closeAll = function () {
+			$rootScope.$broadcast('notifications:closeAll');
+		};
+
 		return {
 			showError: showError,
 			showWarning: showWarning,
-			showSuccess: showSuccess
+			showSuccess: showSuccess,
+			closeAll: closeAll
 		};
 	}]);
 
 	module.directive('notificationsBar', function (notificationsConfig, $timeout) {
 		return {
 			restrict: 'EA',
-			template: '\
-				<div class="notifications-container" ng-if="notifications.length">\
-					<div class="{{note.type}}" ng-repeat="note in notifications">\
-						<span class="message">{{note.message}}</span>\
-						<span class="glyphicon glyphicon-remove close-click" ng-click="close($index)"></span>\
+			template: function(){
+				var acceptHTML = notificationsConfig.getAcceptHTML() || false;
+				return acceptHTML ? '\
+					<div class="notifications-container" ng-if="notifications.length">\
+						<div class="{{note.type}}" ng-repeat="note in notifications">\
+							<span class="message" ng-bind-html="note.message"></span>\
+							<span class="glyphicon glyphicon-remove close-click" ng-click="close($index)"></span>\
+						</div>\
 					</div>\
-				</div>\
-			',
+				' : '\
+					<div class="notifications-container" ng-if="notifications.length">\
+						<div class="{{note.type}}" ng-repeat="note in notifications">\
+							<span class="message" >{{note.message}}</span>\
+							<span class="glyphicon glyphicon-remove close-click" ng-click="close($index)"></span>\
+						</div>\
+					</div>\
+				'
+
+			},
 			link: function (scope) {
 				var notifications = scope.notifications = [];
 				var timers = [];
@@ -114,7 +136,7 @@ function ngNotificationsBar(window, angular) {
 						message = data;
 					}
 
-					var id = 'notif_' + (Math.floor(Math.random() * 100));
+					var id = 'notif_' + (Math.floor(Math.random() * 128));
 					notifications.push({id: id, type: type, message: message});
 					if (hide) {
 						var timer = $timeout(function () {
@@ -136,6 +158,10 @@ function ngNotificationsBar(window, angular) {
 					notificationHandler(event, data, 'success');
 				});
 
+				scope.$on('notifications:closeAll', function () {
+					notifications.length = 0;
+				})
+
 				scope.close = function (index) {
 					notifications.splice(index, 1);
 				};
@@ -144,4 +170,4 @@ function ngNotificationsBar(window, angular) {
 	});
 
 	return module;
-}
+}));

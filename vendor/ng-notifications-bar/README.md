@@ -6,7 +6,7 @@
 
 ## Overview
 
-Web applications requires notify users of ongoing events. Common cases are errros, successful completion notifications etc. With `ng-notifications-bar` it's as easy as,
+Web applications requires notify users of ongoing events. Common cases are errors, successful completion notifications etc. With `ng-notifications-bar` it's as easy as,
 
 ```html
 <body>
@@ -32,14 +32,31 @@ Update your scripts and styles section or use the require for browserified appli
 
 ```html
 <link rel="stylesheet" href="bower_components/ng-notifications-bar/dist/ngNotificationsBar.min.css" />
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 <script scr="bower_components/angular-notifications-bar/dist/ng-notifications-bar.min.js"></script>
+```
+
+If you use Grunt, `wiredep` should inject the required `angular-sanitize.js` for you.
+
+For `browserify` applications, require module in yours application module,
+
+```js
+require('ng-notifications-bar');
+```
+
+In case you are using `sass` in project, it's possible to just import `ngNotificationsBar` styles,
+
+```scss
+@import "../../node_modules/ng-notifications-bar/sass/ngNotificationsBar";
 ```
 
 In application module,
 
 ```js
-angular.module('app', ['ngNotificationsBar']);
+angular.module('app', ['ngNotificationsBar', 'ngSanitize']);
 ```
+
+Please **note**, since `ng-notifications-bar` have a dependency on `glyphicons` you have to copy `/fonts` folder into yours `/public` folder manually. Also `ngSanitize` can be omitted if HTML support isn't needed.
 
 ## API
 
@@ -47,7 +64,7 @@ The module consists of there elements - directive, service and provider.
 
 ### Directive
 
-`notifications-bar` element directive, should be placed once, typically righ after `<body>` open tag.
+`notifications-bar` element directive, should be placed once, typically right after `<body>` open tag.
 
 ```html
 <notifications-bar class="notifications"></notifications-bar>
@@ -73,11 +90,11 @@ app.controllers('app', function ($scope, api, notifications) {
 		});
 
 	$scope.submitTask = function () {
-		api.post({resouce: 'tasks'}, {description: this.description})
+		api.post({resource: 'tasks'}, {description: this.description})
 			.then(function () {
 				notifications.showSuccess({message: 'Your task posted successfully'});
 			}, function (error) {
-				notifications.showError({message: 'Oh no! Task submition failed, please try again.'});
+				notifications.showError({message: 'Oh no! Task submission failed, <em>please try again.</em>'});
 			});
 	}
 });
@@ -104,6 +121,13 @@ Available options:
 
 - autoHide
 - hideDelay
+- acceptHTML
+
+Please **note**, HTML support is only configurable at a global level. If HTML is to be supported, make sure to inject the `'ngSanitize'` dependency.
+
+```js
+var app = angular.module('app', ['ngNotificationsBar', 'ngSanitize']);
+```
 
 
 ### During configuration
@@ -115,6 +139,9 @@ app.config(['notificationsConfigProvider'], function (notificationsConfigProvide
 
 	// delay before hide
 	notificationsConfigProvider.setHideDelay(3000);
+
+	// support HTML
+	notificationsConfigProvider.setAcceptHTML(false);
 }])
 ```
 
@@ -125,13 +152,14 @@ app.config(['notificationsConfigProvider'], function (notificationsConfigProvide
 app.controller('main', function ($scope, notifications) {
 	$scope.showError = function () {
 		notifications.showError({
-			message: 'Oops! Something bad just happend! (hides faster)',
+			message: 'Oops! Something bad just happened! (hides faster)',
 			hideDelay: 1500, //ms
 			hide: true //bool
 		});
 	};
 });
 ```
+
 
 ## Development
 
