@@ -70,7 +70,7 @@ module.exports = {
       'vendor/angular-animate/angular-animate.js',
       'vendor/cloudinary_ng/js/angular.cloudinary.js',
       'vendor/ng-file-upload/angular-file-upload.min.js',
-      'vendor/lodash/dist/lodash.min.js',
+      'vendor/lodash/lodash.min.js',
       'vendor/angular-resource/angular-resource.js',
       'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
       'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
