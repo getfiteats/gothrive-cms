@@ -66,9 +66,12 @@ angular.module('cms.meal')
 
   $scope.$watch('selectedParent', function(newParent){
     if (!newParent) {
+      $scope.selectedPlace = {};
+      $scope.meal.brand = {};
       return;
     }
     $scope.meal.parentId = newParent.originalObject.id;
+    $scope.meal.brand = newParent.originalObject.brand;
   });
 
   // Trainer Dropdown
