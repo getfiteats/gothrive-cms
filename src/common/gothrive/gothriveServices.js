@@ -3516,24 +3516,6 @@ module.factory(
           method: "PUT"
         },
 
-        // INTERNAL. Use Brand.dishes.findById() instead.
-        "prototype$__findById__dishes": {
-          url: urlBase + "/Brands/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.destroyById() instead.
-        "prototype$__destroyById__dishes": {
-          url: urlBase + "/Brands/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.dishes.updateById() instead.
-        "prototype$__updateById__dishes": {
-          url: urlBase + "/Brands/:id/dishes/:fk",
-          method: "PUT"
-        },
-
         // INTERNAL. Use Brand.meals() instead.
         "prototype$__get__meals": {
           isArray: true,
@@ -3556,31 +3538,6 @@ module.factory(
         // INTERNAL. Use Brand.meals.count() instead.
         "prototype$__count__meals": {
           url: urlBase + "/Brands/:id/meals/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes() instead.
-        "prototype$__get__dishes": {
-          isArray: true,
-          url: urlBase + "/Brands/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.create() instead.
-        "prototype$__create__dishes": {
-          url: urlBase + "/Brands/:id/dishes",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.dishes.destroyAll() instead.
-        "prototype$__delete__dishes": {
-          url: urlBase + "/Brands/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.dishes.count() instead.
-        "prototype$__count__dishes": {
-          url: urlBase + "/Brands/:id/dishes/count",
           method: "GET"
         },
 
@@ -3964,12 +3921,6 @@ module.factory(
         // INTERNAL. Use Meal.brand() instead.
         "::get::Meal::brand": {
           url: urlBase + "/Meals/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.brand() instead.
-        "::get::Dish::brand": {
-          url: urlBase + "/Dishes/:id/brand",
           method: "GET"
         },
       }
@@ -4369,269 +4320,6 @@ module.factory(
         R.meals.updateById = function() {
           var TargetResource = $injector.get("Meal");
           var action = TargetResource["::updateById::Brand::meals"];
-          return action.apply(R, arguments);
-        };
-    /**
-     * @ngdoc object
-     * @name lbServices.Brand.dishes
-     * @header lbServices.Brand.dishes
-     * @object
-     * @description
-     *
-     * The object `Brand.dishes` groups methods
-     * manipulating `Dish` instances related to `Brand`.
-     *
-     * Call {@link lbServices.Brand#dishes Brand.dishes()}
-     * to query all related instances.
-     */
-
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand#dishes
-         * @methodOf cms.gothriveServices.Brand
-         *
-         * @description
-         *
-         * Queries dishes of Brand.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `filter` – `{object=}` - 
-         *
-         * @param {function(Array.<Object>,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Array.<Object>} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::get::Brand::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.dishes#count
-         * @methodOf cms.gothriveServices.Brand.dishes
-         *
-         * @description
-         *
-         * Counts dishes of Brand.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `where` – `{object=}` - Criteria to match model instances
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `count` – `{number=}` - 
-         */
-        R.dishes.count = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::count::Brand::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.dishes#create
-         * @methodOf cms.gothriveServices.Brand.dishes
-         *
-         * @description
-         *
-         * Creates a new instance in dishes of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes.create = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::create::Brand::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.dishes#destroyAll
-         * @methodOf cms.gothriveServices.Brand.dishes
-         *
-         * @description
-         *
-         * Deletes all dishes of this model.
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishes.destroyAll = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::delete::Brand::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.dishes#destroyById
-         * @methodOf cms.gothriveServices.Brand.dishes
-         *
-         * @description
-         *
-         * Delete a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        R.dishes.destroyById = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::destroyById::Brand::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.dishes#findById
-         * @methodOf cms.gothriveServices.Brand.dishes
-         *
-         * @description
-         *
-         * Find a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes.findById = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::findById::Brand::dishes"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Brand.dishes#updateById
-         * @methodOf cms.gothriveServices.Brand.dishes
-         *
-         * @description
-         *
-         * Update a related item by id for dishes
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `fk` – `{*}` - Foreign key for dishes
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
-         * </em>
-         */
-        R.dishes.updateById = function() {
-          var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::updateById::Brand::dishes"];
           return action.apply(R, arguments);
         };
 
@@ -5077,6 +4765,46 @@ module.factory(
           method: "PUT"
         },
 
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.Meal#saveDependencies
+         * @methodOf cms.gothriveServices.Meal
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         *  - `data` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Meal` object.)
+         * </em>
+         */
+        "saveDependencies": {
+          url: urlBase + "/Meals/saveDependencies",
+          method: "POST"
+        },
+
         // INTERNAL. Use Brand.meals.findById() instead.
         "::findById::Brand::meals": {
           url: urlBase + "/Brands/:id/meals/:fk",
@@ -5117,12 +4845,6 @@ module.factory(
         // INTERNAL. Use Brand.meals.count() instead.
         "::count::Brand::meals": {
           url: urlBase + "/Brands/:id/meals/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.meal() instead.
-        "::get::Dish::meal": {
-          url: urlBase + "/Dishes/:id/meal",
           method: "GET"
         },
       }
@@ -5305,7 +5027,7 @@ module.factory(
      * @description
      *
      * The object `Meal.dishes` groups methods
-     * manipulating `DishReference` instances related to `Meal`.
+     * manipulating `Dish` instances related to `Meal`.
      *
      * Call {@link lbServices.Meal#dishes Meal.dishes()}
      * to query all related instances.
@@ -5339,11 +5061,11 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
         R.dishes = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::get::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5378,7 +5100,7 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         R.dishes.count = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::count::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5412,11 +5134,11 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
         R.dishes.create = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::create::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5447,7 +5169,7 @@ module.factory(
          * This method returns no data.
          */
         R.dishes.destroyAll = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::delete::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5480,7 +5202,7 @@ module.factory(
          * This method returns no data.
          */
         R.dishes.destroyById = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::destroyById::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5512,11 +5234,11 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
         R.dishes.findById = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::findById::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5552,11 +5274,11 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `DishReference` object.)
+         * This usually means the response is a `Dish` object.)
          * </em>
          */
         R.dishes.updateById = function() {
-          var TargetResource = $injector.get("DishReference");
+          var TargetResource = $injector.get("Dish");
           var action = TargetResource["::updateById::Meal::dishes"];
           return action.apply(R, arguments);
         };
@@ -5723,13 +5445,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name cms.gothriveServices.Dish
- * @header cms.gothriveServices.Dish
+ * @name cms.gothriveServices.NutritionTag
+ * @header cms.gothriveServices.NutritionTag
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `Dish` model.
+ * A $resource object for interacting with the `NutritionTag` model.
  *
  * ## Example
  *
@@ -5739,29 +5461,17 @@ module.factory(
  *
  */
 module.factory(
-  "Dish",
+  "NutritionTag",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Dishes/:id",
+      urlBase + "/NutritionTags/:id",
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use Dish.brand() instead.
-        "prototype$__get__brand": {
-          url: urlBase + "/Dishes/:id/brand",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Dish.meal() instead.
-        "prototype$__get__meal": {
-          url: urlBase + "/Dishes/:id/meal",
-          method: "GET"
-        },
-
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#create
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#create
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5788,18 +5498,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         "create": {
-          url: urlBase + "/Dishes",
+          url: urlBase + "/NutritionTags",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#upsert
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#upsert
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5826,18 +5536,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         "upsert": {
-          url: urlBase + "/Dishes",
+          url: urlBase + "/NutritionTags",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#exists
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#exists
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5862,14 +5572,14 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/Dishes/:id/exists",
+          url: urlBase + "/NutritionTags/:id/exists",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#findById
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#findById
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5891,18 +5601,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         "findById": {
-          url: urlBase + "/Dishes/:id",
+          url: urlBase + "/NutritionTags/:id",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#find
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#find
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5924,19 +5634,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         "find": {
           isArray: true,
-          url: urlBase + "/Dishes",
+          url: urlBase + "/NutritionTags",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#findOne
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#findOne
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5958,18 +5668,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         "findOne": {
-          url: urlBase + "/Dishes/findOne",
+          url: urlBase + "/NutritionTags/findOne",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#updateAll
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#updateAll
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -5996,14 +5706,14 @@ module.factory(
          * This method returns no data.
          */
         "updateAll": {
-          url: urlBase + "/Dishes/update",
+          url: urlBase + "/NutritionTags/update",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#deleteById
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#deleteById
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6026,14 +5736,14 @@ module.factory(
          * This method returns no data.
          */
         "deleteById": {
-          url: urlBase + "/Dishes/:id",
+          url: urlBase + "/NutritionTags/:id",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#count
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#count
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6058,14 +5768,14 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/Dishes/count",
+          url: urlBase + "/NutritionTags/count",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#prototype$updateAttributes
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#prototype$updateAttributes
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6091,60 +5801,47 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/Dishes/:id",
+          url: urlBase + "/NutritionTags/:id",
           method: "PUT"
         },
 
-        // INTERNAL. Use Brand.dishes.findById() instead.
-        "::findById::Brand::dishes": {
-          url: urlBase + "/Brands/:id/dishes/:fk",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.destroyById() instead.
-        "::destroyById::Brand::dishes": {
-          url: urlBase + "/Brands/:id/dishes/:fk",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.dishes.updateById() instead.
-        "::updateById::Brand::dishes": {
-          url: urlBase + "/Brands/:id/dishes/:fk",
-          method: "PUT"
-        },
-
-        // INTERNAL. Use Brand.dishes() instead.
-        "::get::Brand::dishes": {
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.NutritionTag#autoComplete
+         * @methodOf cms.gothriveServices.NutritionTag
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `query` – `{string=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `NutritionTag` object.)
+         * </em>
+         */
+        "autoComplete": {
           isArray: true,
-          url: urlBase + "/Brands/:id/dishes",
-          method: "GET"
-        },
-
-        // INTERNAL. Use Brand.dishes.create() instead.
-        "::create::Brand::dishes": {
-          url: urlBase + "/Brands/:id/dishes",
-          method: "POST"
-        },
-
-        // INTERNAL. Use Brand.dishes.destroyAll() instead.
-        "::delete::Brand::dishes": {
-          url: urlBase + "/Brands/:id/dishes",
-          method: "DELETE"
-        },
-
-        // INTERNAL. Use Brand.dishes.count() instead.
-        "::count::Brand::dishes": {
-          url: urlBase + "/Brands/:id/dishes/count",
-          method: "GET"
-        },
-
-        // INTERNAL. Use DishReference.dish() instead.
-        "::get::DishReference::dish": {
-          url: urlBase + "/DishReferences/:id/dish",
+          url: urlBase + "/NutritionTags/autocomplete",
           method: "GET"
         },
       }
@@ -6154,8 +5851,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#updateOrCreate
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#updateOrCreate
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6182,15 +5879,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Dish` object.)
+         * This usually means the response is a `NutritionTag` object.)
          * </em>
          */
         R["updateOrCreate"] = R["upsert"];
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#update
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#update
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6220,8 +5917,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#destroyById
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#destroyById
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6247,8 +5944,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.Dish#removeById
-         * @methodOf cms.gothriveServices.Dish
+         * @name cms.gothriveServices.NutritionTag#removeById
+         * @methodOf cms.gothriveServices.NutritionTag
          *
          * @description
          *
@@ -6275,99 +5972,27 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name cms.gothriveServices.Dish#modelName
-    * @propertyOf cms.gothriveServices.Dish
+    * @name cms.gothriveServices.NutritionTag#modelName
+    * @propertyOf cms.gothriveServices.NutritionTag
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `Dish`.
+    * i.e. `NutritionTag`.
     */
-    R.modelName = "Dish";
+    R.modelName = "NutritionTag";
 
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#brand
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Fetches belongsTo relation brand
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Brand` object.)
-         * </em>
-         */
-        R.brand = function() {
-          var TargetResource = $injector.get("Brand");
-          var action = TargetResource["::get::Dish::brand"];
-          return action.apply(R, arguments);
-        };
-
-        /**
-         * @ngdoc method
-         * @name cms.gothriveServices.Dish#meal
-         * @methodOf cms.gothriveServices.Dish
-         *
-         * @description
-         *
-         * Fetches belongsTo relation meal
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{*}` - PersistedModel id
-         *
-         *  - `refresh` – `{boolean=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * <em>
-         * (The remote method definition does not provide any description.
-         * This usually means the response is a `Meal` object.)
-         * </em>
-         */
-        R.meal = function() {
-          var TargetResource = $injector.get("Meal");
-          var action = TargetResource["::get::Dish::meal"];
-          return action.apply(R, arguments);
-        };
 
     return R;
   }]);
 
 /**
  * @ngdoc object
- * @name cms.gothriveServices.DishReference
- * @header cms.gothriveServices.DishReference
+ * @name cms.gothriveServices.Dish
+ * @header cms.gothriveServices.Dish
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `DishReference` model.
+ * A $resource object for interacting with the `Dish` model.
  *
  * ## Example
  *
@@ -6377,16 +6002,16 @@ module.factory(
  *
  */
 module.factory(
-  "DishReference",
+  "Dish",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/DishReferences/:id",
+      urlBase + "/Dishes/:id",
       { 'id': '@id' },
       {
 
-        // INTERNAL. Use DishReference.dish() instead.
+        // INTERNAL. Use Dish.dish() instead.
         "prototype$__get__dish": {
-          url: urlBase + "/DishReferences/:id/dish",
+          url: urlBase + "/Dishes/:id/dish",
           method: "GET"
         },
 
@@ -6432,6 +6057,12 @@ module.factory(
           url: urlBase + "/Meals/:id/dishes/count",
           method: "GET"
         },
+
+        // INTERNAL. Use Dish.dish() instead.
+        "::get::Dish::dish": {
+          url: urlBase + "/Dishes/:id/dish",
+          method: "GET"
+        },
       }
     );
 
@@ -6440,19 +6071,19 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name cms.gothriveServices.DishReference#modelName
-    * @propertyOf cms.gothriveServices.DishReference
+    * @name cms.gothriveServices.Dish#modelName
+    * @propertyOf cms.gothriveServices.Dish
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `DishReference`.
+    * i.e. `Dish`.
     */
-    R.modelName = "DishReference";
+    R.modelName = "Dish";
 
 
         /**
          * @ngdoc method
-         * @name cms.gothriveServices.DishReference#dish
-         * @methodOf cms.gothriveServices.DishReference
+         * @name cms.gothriveServices.Dish#dish
+         * @methodOf cms.gothriveServices.Dish
          *
          * @description
          *
@@ -6481,7 +6112,7 @@ module.factory(
          */
         R.dish = function() {
           var TargetResource = $injector.get("Dish");
-          var action = TargetResource["::get::DishReference::dish"];
+          var action = TargetResource["::get::Dish::dish"];
           return action.apply(R, arguments);
         };
 
@@ -7238,8 +6869,42 @@ module.factory(
          */
         "details": {
           url: urlBase + "/GooglePlaces/details",
-          method: "GET",
-          isArray: true
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name cms.gothriveServices.GooglePlace#findOne
+         * @methodOf cms.gothriveServices.GooglePlace
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{string=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `GooglePlace` object.)
+         * </em>
+         */
+        "findOne": {
+          url: urlBase + "/GooglePlaces/:id",
+          method: "GET"
         },
       }
     );

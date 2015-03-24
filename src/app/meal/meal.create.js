@@ -1,5 +1,5 @@
 angular.module('cms.meal')
-.controller('CreateMealController', function MealController( $scope, $state, notifications, User, Trainer, Delivery, GooglePlacesFactory, MealFactory, DeliveryFactory) {
+.controller('CreateMealController', function MealController( $scope, $state, notifications, User, Trainer, Delivery, NutritionTag, GooglePlacesFactory, MealFactory, DeliveryFactory) {
   
   var meal = MealFactory.getService();
   var trainers;
@@ -34,6 +34,11 @@ angular.module('cms.meal')
     externalIdProp: ''
   };
 
+  NutritionTag.find().$promise
+    .then(function(tags){
+      $scope.tags = tags;
+    });
+
   $scope.bodyClass = 'meal';
 
   $scope.submitText = "Create";
@@ -49,17 +54,21 @@ angular.module('cms.meal')
       return;
     }
 
-    GooglePlacesFactory.modelClass.details({placeId: placeId}).$promise
+    GooglePlacesFactory.modelClass.findOne({id: placeId}).$promise
       .then(function(place){
-        if (!place.length) {
-          throw new Error("no places found");
-        }
-        setBrand(place[0]);
+        $scope.meal.brand = place;
         $scope.meal.dishes = [{}];
       })
       .catch(function(err){
         notifications.showError({message: "An error occured loading place: " + err});
       });
+  });
+
+  $scope.$watch('selectedParent', function(newParent){
+    if (!newParent) {
+      return;
+    }
+    $scope.meal.parentId = newParent.originalObject.id;
   });
 
   // Trainer Dropdown
@@ -94,6 +103,16 @@ angular.module('cms.meal')
       });
   };
 
+  $scope.toggleTag = function(tag) {
+    tag.active = !tag.active;
+
+    if (tag.active) {
+      $scope.meal.tags[tag.id] = true;
+    } else {
+      delete $scope.meal.tags[tag.id];
+    }
+  };
+
   $scope.addDish = function() {
     $scope.meal.dishes.push({});
   };
@@ -102,26 +121,6 @@ angular.module('cms.meal')
     $scope.trainers = trainers.map(function(trainer){
       return { label: trainer.first + ' ' + trainer.last, id: trainer.id };
     });
-  }
-
-  function setBrand(place) {
-    var schedule;
-
-    $scope.meal.brand.address = place.address_components[0].long_name + ' ' + place.address_components[1].long_name;
-    $scope.meal.brand.city = place.address_components[2].long_name;
-    $scope.meal.brand.state = place.address_components[3].long_name;
-    $scope.meal.brand.country = place.address_components[4].long_name;
-    $scope.meal.brand.zip = place.address_components[5].long_name;
-    $scope.meal.brand.phone = place.formatted_phone_number.replace(/[()-]| /g,'');
-    //$scope.meal.brand.setGeo(place.geometry.location.lng, place.geometry.location.lat);
-
-    if (place.opening_hours && place.opening_hours.periods) {
-      schedule = [];
-      place.opening_hours.periods.forEach(function(period) {
-        schedule.push({day: period.open.day, startTime: period.open.time, endTime: period.close.time});
-      });
-      $scope.meal.brand.schedule = schedule;
-    }
   }
 
 });

@@ -8,6 +8,19 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="form-group" ng-show="!edit">
+				<label for="place-lookup">Meal Parent (optional)</label>
+				<div angucomplete
+					 id="parent-lookup"
+					 placeholder="Search Meals"
+					 pause="400"
+					 selectedobject="selectedParent"
+					 url="{{apiUri}}/meals/autocomplete?access_token={{accessTokenId}}&input="
+					 titlefield="name"
+					 descriptionField="brandName"
+					 inputclass="form-control">
+				</div>
+			</div>
+			<div class="form-group" ng-show="!edit">
 				<label for="place-lookup">Find Address</label>
 				<div angucomplete
 					 id="place-lookup"
@@ -22,27 +35,27 @@
 			<span ng-show="meal.brand.address">
 				<div class="form-group row">
 					<div class="col-md-5">
-						<label>Address</label>
-						<input class="form-control"	type="text" required ng-model="meal.brand.address" />
+						<label>Street</label>
+						<input class="form-control"	type="text" required ng-model="meal.brand.address.street" />
 					</div>
 					<div class="col-md-3">
 						<label>City</label>
-						<input class="form-control"	type="text" required ng-model="meal.brand.city" />
+						<input class="form-control"	type="text" required ng-model="meal.brand.address.city" />
 					</div>
 					<div class="col-md-2">
 						<label>State</label>
-						<input class="form-control"	type="text" required ng-model="meal.brand.state" />
+						<input class="form-control"	type="text" required ng-model="meal.brand.address.state" />
 					</div>
 					<div class="col-md-2">
 						<label>Country</label>
-						<input class="form-control"	type="text" required ng-model="meal.brand.country" />
+						<input class="form-control"	type="text" required ng-model="meal.brand.address.country" />
 					</div>
 				</div>
 
 				<div class="form-group row">
 					<div class="col-md-4">
 						<label>Zip</label>
-						<input class="form-control"	type="text" required ng-model="meal.brand.zip" />
+						<input class="form-control"	type="text" required ng-model="meal.brand.address.zip" />
 					</div>
 				</div>
 
@@ -106,8 +119,10 @@
 		<div class="col-xs-12">
 			<div class="form-group">
 				<label>Tags</label>
-				<tags-input ng-model="meal.tags">
-		    </tags-input>
+				<ul class="nav nav-pills">
+				  <li ng-class="{active: tag.active}" ng-repeat="tag in tags"><a ng-click="toggleTag(tag)" href="javascript:void(0);">{{tag.name}}</a></li>
+				</ul>
+			</div>
 			</div>
 			<div class="form-group">
 				<label>Ingredients</label>
