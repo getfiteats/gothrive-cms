@@ -21,7 +21,7 @@ angular.module('cms')
     });
     model._nutritionTags = Object.keys(model.tags).map(function(tagId){
       var tag = model.tags[tagId];
-      return { id: tagId };
+      return { nutritionTagId: tagId };
     });
 
     model._dependencies = {};
