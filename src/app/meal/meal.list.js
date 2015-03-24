@@ -10,14 +10,28 @@ angular.module('cms.meal')
 
     $scope.meals = MOCK_MEALS;
 
-    //MealFactory.modelClass.find({filter: {}}).$promise
-    //  .then(function(meals){
-    //    console.log('mealss', meals);
-    //    $scope.meals = meals || MOCK_MEALS;
-    //  })
-    //  .catch(function(err){
-    //    notifications.showError({message: "An error occurred loading meals " + err});
-    //  });
+    MealFactory.modelClass.find({filter: {
+      include:[
+        {
+          relation: 'brand'
+        },
+        {
+          relation: 'dishes',
+          scope: {
+            include: {
+              relation: 'dish'
+            }
+          }
+        }
+      ]}
+    }).$promise
+      .then(function(meals){
+        console.log('mealss', meals);
+        $scope.meals = meals || MOCK_MEALS;
+      })
+      .catch(function(err){
+        notifications.showError({message: "An error occurred loading meals " + err});
+      });
 
     $scope.update = function(modelData) {
       var service = new MealFactory(modelData);
