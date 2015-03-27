@@ -1,9 +1,9 @@
 *.sw*
 *~
 node_modules/
-coverage
-build
-compile
-src/less/master.less
+/coverage
+/build
+/compile
+/src/less/master.less
 .idea/
 npm-debug.log
