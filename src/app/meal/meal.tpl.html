@@ -68,13 +68,16 @@
 			</span>
 		</div>
 	</div>
-		
+
 	<hr />
 
 	<div class="row">
-		<div class="dishes col-xs-12" ng-show="meal.brand.address">
-			<h3>Dishes</h3>
+		<div class="dishes col-xs-12" ng-show="meal.brand.address && meal.dishes.length">
+      <h3>Dishes</h3>
 			<div class="dish no-gutter" ng-repeat="dish in meal.dishes" ng-class="{odd: $index%2}">
+        <div class="col col-xs-12">
+          <span style="float: right" class="glyphicon glyphicon-remove" ng-click="removeDish($index)"></span>
+        </div>
 				<div class="col col-xs-10">
 					<label>Name</label>
 					<input type="text" ng-model="dish.name" class="form-control">
@@ -93,7 +96,7 @@
 			<hr />
 		</div>
 	</div>
-	
+
 
 	<div class="row">
 		<div class="col-xs-12">
@@ -130,9 +133,9 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<hr />
-	<div class="row">	
+	<div class="row">
 		<div class="col-xs-12">
 			<h3>Trainer</h3>
 		</div>
