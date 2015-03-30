@@ -24,7 +24,7 @@
 				<label for="place-lookup">Find Address</label>
 				<div angucomplete
 					 id="place-lookup"
-					 placeholder="Search Places"
+					 placeholder="{{ meal.brand.name || 'Search Places' }}"
 					 pause="400"
 					 selectedobject="selectedPlace"
 					 url="{{apiUri}}/googleplaces/autocomplete?access_token={{accessTokenId}}&input="
