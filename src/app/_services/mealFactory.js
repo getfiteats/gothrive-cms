@@ -19,17 +19,18 @@ angular.module('cms')
     model.ingredients = this.model.ingredients.map(function(ingredient){
       return ingredient.text;
     });
-    model._nutritionTags = Object.keys(model.tags).map(function(tagId){
+    model._nutritionTagReferences = Object.keys(model.tags).map(function(tagId){
       var tag = model.tags[tagId];
       return { nutritionTagId: tagId };
     });
 
     model._dependencies = {};
     model._dependencies.brand = model.brand;
+    model._trainerReference = {trainerId: model.trainer.id, quote: model.trainer.quote};
 
+    delete model.trainer;
     delete model.dishes;
     delete model.brand;
-    delete model.trainer.label;
     delete model.tags;
     return model;
   };
@@ -49,7 +50,7 @@ angular.module('cms')
         }
         options.forEach(function(option){
           total += option.price || 0;
-        }); 
+        });
         return total;
       })
       .reduce(function(prev, current){

@@ -1,9 +1,9 @@
 angular.module('cms.meal')
-.controller('CreateMealController', function MealController( $scope, $state, notifications, User, Trainer, Delivery, NutritionTag, GooglePlacesFactory, MealFactory, DeliveryFactory) {
+.controller('CreateMealController', function MealController( $scope, $state, notifications, User, Trainer, Delivery, NutritionTag, GooglePlacesFactory, MealFactory) {
 
   var meal = MealFactory.getService();
   var trainers;
-  var selectOneSettings = {
+  var trainerSettings = {
     showCheckAll: false,
     showUncheckAll: false,
     smartButtonMaxItems: 30,
@@ -11,27 +11,7 @@ angular.module('cms.meal')
     selectionLimit: 1,
     enableSearch: true,
     closeOnSelect: true,
-    closeOnDeselect: true,
-    externalIdProp: ''
-  };
-  var selectMultipleSettings = {
-    showCheckAll: false,
-    showUncheckAll: false,
-    smartButtonMaxItems: 30,
-    dynamicTitle: true,
-    enableSearch: true,
-    closeOnSelect: true,
-    closeOnDeselect: true,
-    externalIdProp: ''
-  };
-  var dishOptionSettings = {
-    showCheckAll: false,
-    showUncheckAll: false,
-    smartButtonMaxItems: 30,
-    dynamicTitle: true,
-    closeOnSelect: true,
-    closeOnDeselect: true,
-    externalIdProp: ''
+    closeOnDeselect: true
   };
 
   NutritionTag.find().$promise
@@ -75,7 +55,7 @@ angular.module('cms.meal')
   });
 
   // Trainer Dropdown
-  $scope.trainerSettings = selectOneSettings;
+  $scope.trainerSettings = trainerSettings;
   $scope.trainerTexts = {
     buttonDefaultText: "Select Trainer"
   };
