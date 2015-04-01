@@ -18,7 +18,7 @@ angular.module( 'cms', [
   'cms.meal',
   'cms.trainer',
   'cms.modals',
-  'cms.gothriveServices'
+  'cms.api'
 ])
 .config(function myAppConfig( $stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise( '/' );
@@ -46,7 +46,7 @@ angular.module( 'cms', [
   $rootScope.apiUri = initData.apiUri;
   $rootScope.apiBaseUri = initData.apiBaseUri;
   $rootScope.CLOUDINARY_BASE_URL = initData.cloudinaryBaseUrl;
-  
+
   if (LoopBackAuth.accessTokenId) {
     $rootScope.accessTokenId = LoopBackAuth.accessTokenId;
   }
@@ -57,7 +57,7 @@ angular.module( 'cms', [
     if (angular.isDefined(toState.data.bodyClass)) {
       $scope.bodyClass = toState.data.bodyClass;
     }
-    
+
     $scope.userAuthenticated = User.isAuthenticated();
     $scope.breadcrumbs = breadcrumbs.update();
     $log.info("$scope.userAuthenticated", $scope.userAuthenticated, $scope.breadcrumbs);
