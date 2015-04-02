@@ -44,7 +44,7 @@ angular.module('cms.meal')
 
     function init(mealService) {
       $scope.meal = meal.model = mealService.model;
-      if ($scope.meal.trainerReference) {
+      if ($scope.meal.trainerReference && $scope.meal.trainerReference.trainer) {
         $scope.meal.trainer = {
           label: $scope.meal.trainerReference.trainer.first + ' ' + $scope.meal.trainerReference.trainer.last,
           id: $scope.meal.trainerReference.trainer.id,
@@ -109,7 +109,7 @@ angular.module('cms.meal')
     };
 
     $scope.addDish = function addDish() {
-      $scope.meal.dishes.push({});
+      $scope.meal._dishes.push({});
     };
 
     $scope.removeDish = function removeDish(index) {
