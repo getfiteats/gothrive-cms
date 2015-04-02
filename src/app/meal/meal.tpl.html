@@ -72,9 +72,9 @@
 	<hr />
 
 	<div class="row">
-		<div class="dishes col-xs-12" ng-show="meal.brand.address && meal.dishes.length">
+		<div class="dishes col-xs-12" ng-show="meal.brand.address">
       <h3>Dishes</h3>
-			<div class="dish no-gutter" ng-repeat="dish in meal.dishes" ng-class="{odd: $index%2}">
+			<div class="dish no-gutter" ng-repeat="dish in meal._dishes" ng-class="{odd: $index%2}">
         <div class="col col-xs-12">
           <span style="float: right" class="glyphicon glyphicon-remove" ng-click="removeDish($index)"></span>
         </div>

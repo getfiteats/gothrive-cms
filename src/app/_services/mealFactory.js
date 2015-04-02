@@ -4,7 +4,7 @@ angular.module('cms')
   function MealService(data) {
     this.defaults = {
       trainer: {},
-      dishes: [],
+      _dishes: [{}],
       brand: {},
       summary: '',
       tags: {}
@@ -15,7 +15,6 @@ angular.module('cms')
   MealService.prototype.toStorageSchema = function() {
     var model = angular.copy(this.model);
 
-    model._dishes = model.dishes;
     model.ingredients = this.model.ingredients.map(function(ingredient){
       return ingredient.text;
     });

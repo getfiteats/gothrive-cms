@@ -12,14 +12,13 @@ angular.module('cms.meal')
         notifications.showError({message: "An error occurred loading meals " + err});
       });
 
-    $scope.update = function(modelData) {
-      var service = new MealFactory(modelData);
-      service.update()
+    $scope.update = function(meal) {
+      meal.$save()
         .then(function(){
-          notifications.showSuccess({ message: "Updated Meal: '" + modelData.name + "'"});
+          notifications.showSuccess({ message: "Updated Meal: '" + meal.name + "'"});
         })
         .catch(function(err){
-          notifications.showError({ message: "Error Updating Meal: '" + modelData.name + "' " + err.statusText });
+          notifications.showError({ message: "Error Updating Meal: '" + meal.name + "' " + err.statusText });
         });
     };
 });
