@@ -81,7 +81,7 @@ angular.module('cms.meal')
       GooglePlacesFactory.modelClass.findOne({id: placeId}).$promise
         .then(function(place){
           $scope.meal.brand = place;
-          $scope.meal.dishes = [{}];
+          $scope.meal._dishes = [{}];
         })
         .catch(function(err){
           notifications.showError({message: "An error occured loading place: " + err});
@@ -113,8 +113,8 @@ angular.module('cms.meal')
     };
 
     $scope.removeDish = function removeDish(index) {
-      if (index > -1 && $scope.meal.dishes.length > 1) {
-        $scope.meal.dishes.splice(index, 1);
+      if (index > -1 && $scope.meal._dishes.length > 1) {
+        $scope.meal._dishes.splice(index, 1);
       }
     };
 
