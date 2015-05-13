@@ -1,0 +1,14 @@
+<div>
+    <form ng-model="addForm">
+        <div class="modal-header">
+            <h3 class="modal-title">Add New {{addTopic}}</h3>
+        </div>
+        <div class="modal-body">
+            <label>Name:</label> <input required auto-focus="true" ng-enter="submit()" ng-model="addSubject.name" class="form-control" type="text">
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" ng-click="submit()">Add</button>
+            <button type="button" class="btn btn-default" ng-click="submit(true)">Cancel</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,31 @@
+<div class='cloudinary-upload-form'>
+    <div class="cloudinary-direct-upload" 
+        ng-file-drop
+        ng-file-drag-over-class="dragOverClass($event)"
+        ng-model="files">
+        <h1>Upload Image</h1>
+        <p ng-show="!files">Use the button below or drag and drop an image file into the dashed area.</p>
+            <img class='uploaded-image' ng-show="ngModel.secure_url" ng-src="{{ngModel.secure_url}}" />
+        <div class="file" ng-repeat="file in files">
+            <span ng-show="file.status !== 'complete'">
+                <div ng-show="file.status == 'uploading'" class="status">Uploading... {{file.progress}} %</div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
+                </div>
+            </span>
+        </div>
+        <form>
+            <div class="form-line">
+                <div class="form-controls">
+                    <div class="upload-button-holder">
+                        <div href="#" class="btn btn-default" ng-file-select title="upload" resetOnClick="true" ng-model="files">
+                            Upload <span ng-show="files">New Image</span> 
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <p class="error-msg" ng-show="uploadError">{{uploadError}}</p>
+        </form>
+    </div>
+</div>
